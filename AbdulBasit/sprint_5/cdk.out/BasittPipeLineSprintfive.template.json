@@ -1,0 +1,3283 @@
+{
+  "Resources": {
+    "PipelineArtifactsBucketAEA9A052": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "aws:kms"
+              }
+            }
+          ]
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/ArtifactsBucket/Resource"
+      }
+    },
+    "PipelineArtifactsBucketPolicyF53CCC52": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "PipelineArtifactsBucketAEA9A052"
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false"
+                }
+              },
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*"
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "PipelineArtifactsBucketAEA9A052",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "PipelineArtifactsBucketAEA9A052",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*"
+              ],
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":role/cdk-hnb659fds-deploy-role-",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      "-",
+                      {
+                        "Ref": "AWS::Region"
+                      }
+                    ]
+                  ]
+                }
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "PipelineArtifactsBucketAEA9A052",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "PipelineArtifactsBucketAEA9A052",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/ArtifactsBucket/Policy/Resource"
+      }
+    },
+    "PipelineRoleB27FAA37": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codepipeline.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Role/Resource"
+      }
+    },
+    "PipelineRoleDefaultPolicy7BDC1ABB": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject",
+                "s3:PutObjectLegalHold",
+                "s3:PutObjectRetention",
+                "s3:PutObjectTagging",
+                "s3:PutObjectVersionTagging",
+                "s3:Abort*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "PipelineArtifactsBucketAEA9A052",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "PipelineArtifactsBucketAEA9A052",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineBuildSynthCodePipelineActionRole4E7A6C97",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleD6D4E5CF",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineAssetsFileAsset1CodePipelineActionRoleC0EC649A",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineAssetsFileAsset2CodePipelineActionRole06965A59",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineAssetsFileAsset3CodePipelineActionRole99229BA9",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineAssetsFileAsset4CodePipelineActionRole492E1DB6",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineAssetsFileAsset5CodePipelineActionRole7F5BE01A",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineAssetsFileAsset6CodePipelineActionRoleB00CC4C9",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineAssetsFileAsset7CodePipelineActionRole0E00FBA5",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineAssetsFileAsset8CodePipelineActionRole000E8EFE",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelinebetaunittestCodePipelineActionRoleA0506F07",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":iam::",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":role/cdk-hnb659fds-deploy-role-",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    "-",
+                    {
+                      "Ref": "AWS::Region"
+                    }
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelinebetaBasitpyrestDockerCodePipelineActionRole250CDBE7",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineProdPromoteToProdCodePipelineActionRole08AAED6C",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelineRoleDefaultPolicy7BDC1ABB",
+        "Roles": [
+          {
+            "Ref": "PipelineRoleB27FAA37"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Role/DefaultPolicy/Resource"
+      }
+    },
+    "Pipeline9850B417": {
+      "Type": "AWS::CodePipeline::Pipeline",
+      "Properties": {
+        "RoleArn": {
+          "Fn::GetAtt": [
+            "PipelineRoleB27FAA37",
+            "Arn"
+          ]
+        },
+        "Stages": [
+          {
+            "Actions": [
+              {
+                "ActionTypeId": {
+                  "Category": "Source",
+                  "Owner": "ThirdParty",
+                  "Provider": "GitHub",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "Owner": "abdul22skipq",
+                  "Repo": "Voyager",
+                  "Branch": "main",
+                  "OAuthToken": "{{resolve:secretsmanager:Sprint3/BST/Toke:SecretString:::}}",
+                  "PollForSourceChanges": true
+                },
+                "Name": "abdul22skipq_Voyager",
+                "OutputArtifacts": [
+                  {
+                    "Name": "abdul22skipq_Voyager_Source"
+                  }
+                ],
+                "RunOrder": 1
+              }
+            ],
+            "Name": "Source"
+          },
+          {
+            "Actions": [
+              {
+                "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Provider": "CodeBuild",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "PipelineBuildSynthCdkBuildProject6BEFA8E6"
+                  },
+                  "EnvironmentVariables": "[{\"name\":\"_PROJECT_CONFIG_HASH\",\"type\":\"PLAINTEXT\",\"value\":\"5f3070a2c1813befb17b3e2ed28e3f5bad29c6a6200627817ba2815fef3df297\"}]"
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "abdul22skipq_Voyager_Source"
+                  }
+                ],
+                "Name": "Synth",
+                "OutputArtifacts": [
+                  {
+                    "Name": "Synth_Output"
+                  }
+                ],
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "PipelineBuildSynthCodePipelineActionRole4E7A6C97",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              }
+            ],
+            "Name": "Build"
+          },
+          {
+            "Actions": [
+              {
+                "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Provider": "CodeBuild",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "PipelineUpdatePipelineSelfMutationDAA41400"
+                  },
+                  "EnvironmentVariables": "[{\"name\":\"_PROJECT_CONFIG_HASH\",\"type\":\"PLAINTEXT\",\"value\":\"af41e470996908e62f5da18d3c7fc86bb109b97d56b730c25a5fa648fe8a0153\"}]"
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "Synth_Output"
+                  }
+                ],
+                "Name": "SelfMutate",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleD6D4E5CF",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              }
+            ],
+            "Name": "UpdatePipeline"
+          },
+          {
+            "Actions": [
+              {
+                "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Provider": "CodeBuild",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "PipelineAssetsFileAsset185A67CB4"
+                  }
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "Synth_Output"
+                  }
+                ],
+                "Name": "FileAsset1",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "PipelineAssetsFileAsset1CodePipelineActionRoleC0EC649A",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              },
+              {
+                "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Provider": "CodeBuild",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "PipelineAssetsFileAsset24D2D639B"
+                  }
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "Synth_Output"
+                  }
+                ],
+                "Name": "FileAsset2",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "PipelineAssetsFileAsset2CodePipelineActionRole06965A59",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              },
+              {
+                "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Provider": "CodeBuild",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "PipelineAssetsFileAsset3FE71B523"
+                  }
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "Synth_Output"
+                  }
+                ],
+                "Name": "FileAsset3",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "PipelineAssetsFileAsset3CodePipelineActionRole99229BA9",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              },
+              {
+                "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Provider": "CodeBuild",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "PipelineAssetsFileAsset474303B7D"
+                  }
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "Synth_Output"
+                  }
+                ],
+                "Name": "FileAsset4",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "PipelineAssetsFileAsset4CodePipelineActionRole492E1DB6",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              },
+              {
+                "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Provider": "CodeBuild",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "PipelineAssetsFileAsset5184A5C2F"
+                  }
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "Synth_Output"
+                  }
+                ],
+                "Name": "FileAsset5",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "PipelineAssetsFileAsset5CodePipelineActionRole7F5BE01A",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              },
+              {
+                "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Provider": "CodeBuild",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "PipelineAssetsFileAsset669C72F3C"
+                  }
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "Synth_Output"
+                  }
+                ],
+                "Name": "FileAsset6",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "PipelineAssetsFileAsset6CodePipelineActionRoleB00CC4C9",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              },
+              {
+                "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Provider": "CodeBuild",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "PipelineAssetsFileAsset7A51C54D0"
+                  }
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "Synth_Output"
+                  }
+                ],
+                "Name": "FileAsset7",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "PipelineAssetsFileAsset7CodePipelineActionRole0E00FBA5",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              },
+              {
+                "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Provider": "CodeBuild",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "PipelineAssetsFileAsset81DAB433B"
+                  }
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "Synth_Output"
+                  }
+                ],
+                "Name": "FileAsset8",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "PipelineAssetsFileAsset8CodePipelineActionRole000E8EFE",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              }
+            ],
+            "Name": "Assets"
+          },
+          {
+            "Actions": [
+              {
+                "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Provider": "CodeBuild",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "PipelinebetaunittestB8C07903"
+                  }
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "abdul22skipq_Voyager_Source"
+                  }
+                ],
+                "Name": "unit_test",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "PipelinebetaunittestCodePipelineActionRoleA0506F07",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              },
+              {
+                "ActionTypeId": {
+                  "Category": "Deploy",
+                  "Owner": "AWS",
+                  "Provider": "CloudFormation",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "StackName": "beta-BasitstepstageSprint5",
+                  "Capabilities": "CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND",
+                  "RoleArn": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":iam::",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":role/cdk-hnb659fds-cfn-exec-role-",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        "-",
+                        {
+                          "Ref": "AWS::Region"
+                        }
+                      ]
+                    ]
+                  },
+                  "ActionMode": "CHANGE_SET_REPLACE",
+                  "ChangeSetName": "PipelineChange",
+                  "TemplatePath": "Synth_Output::assembly-BasittPipeLineSprintfive-beta/BasittPipeLineSprintfivebetaBasitstepstageSprint5D6A12225.template.json"
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "Synth_Output"
+                  }
+                ],
+                "Name": "BasitstepstageSprint5.Prepare",
+                "RoleArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":role/cdk-hnb659fds-deploy-role-",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      "-",
+                      {
+                        "Ref": "AWS::Region"
+                      }
+                    ]
+                  ]
+                },
+                "RunOrder": 2
+              },
+              {
+                "ActionTypeId": {
+                  "Category": "Deploy",
+                  "Owner": "AWS",
+                  "Provider": "CloudFormation",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "StackName": "beta-BasitstepstageSprint5",
+                  "ActionMode": "CHANGE_SET_EXECUTE",
+                  "ChangeSetName": "PipelineChange"
+                },
+                "Name": "BasitstepstageSprint5.Deploy",
+                "RoleArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":role/cdk-hnb659fds-deploy-role-",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      "-",
+                      {
+                        "Ref": "AWS::Region"
+                      }
+                    ]
+                  ]
+                },
+                "RunOrder": 3
+              },
+              {
+                "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Provider": "CodeBuild",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "PipelinebetaBasitpyrestDockerEB90FB9E"
+                  }
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "abdul22skipq_Voyager_Source"
+                  }
+                ],
+                "Name": "BasitpyrestDocker",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "PipelinebetaBasitpyrestDockerCodePipelineActionRole250CDBE7",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 4
+              }
+            ],
+            "Name": "beta"
+          },
+          {
+            "Actions": [
+              {
+                "ActionTypeId": {
+                  "Category": "Approval",
+                  "Owner": "AWS",
+                  "Provider": "Manual",
+                  "Version": "1"
+                },
+                "Name": "PromoteToProd",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "PipelineProdPromoteToProdCodePipelineActionRole08AAED6C",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              },
+              {
+                "ActionTypeId": {
+                  "Category": "Deploy",
+                  "Owner": "AWS",
+                  "Provider": "CloudFormation",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "StackName": "Prod-BasitstepstageSprint5",
+                  "Capabilities": "CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND",
+                  "RoleArn": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":iam::",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":role/cdk-hnb659fds-cfn-exec-role-",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        "-",
+                        {
+                          "Ref": "AWS::Region"
+                        }
+                      ]
+                    ]
+                  },
+                  "ActionMode": "CHANGE_SET_REPLACE",
+                  "ChangeSetName": "PipelineChange",
+                  "TemplatePath": "Synth_Output::assembly-BasittPipeLineSprintfive-Prod/BasittPipeLineSprintfiveProdBasitstepstageSprint55842D8AF.template.json"
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "Synth_Output"
+                  }
+                ],
+                "Name": "BasitstepstageSprint5.Prepare",
+                "RoleArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":role/cdk-hnb659fds-deploy-role-",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      "-",
+                      {
+                        "Ref": "AWS::Region"
+                      }
+                    ]
+                  ]
+                },
+                "RunOrder": 2
+              },
+              {
+                "ActionTypeId": {
+                  "Category": "Deploy",
+                  "Owner": "AWS",
+                  "Provider": "CloudFormation",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "StackName": "Prod-BasitstepstageSprint5",
+                  "ActionMode": "CHANGE_SET_EXECUTE",
+                  "ChangeSetName": "PipelineChange"
+                },
+                "Name": "BasitstepstageSprint5.Deploy",
+                "RoleArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":role/cdk-hnb659fds-deploy-role-",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      "-",
+                      {
+                        "Ref": "AWS::Region"
+                      }
+                    ]
+                  ]
+                },
+                "RunOrder": 3
+              }
+            ],
+            "Name": "Prod"
+          }
+        ],
+        "ArtifactStore": {
+          "Location": {
+            "Ref": "PipelineArtifactsBucketAEA9A052"
+          },
+          "Type": "S3"
+        },
+        "RestartExecutionOnUpdate": true,
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "DependsOn": [
+        "PipelineRoleDefaultPolicy7BDC1ABB",
+        "PipelineRoleB27FAA37"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Resource"
+      }
+    },
+    "PipelineBuildSynthCdkBuildProjectRole231EEA2A": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codebuild.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Build/Synth/CdkBuildProject/Role/Resource"
+      }
+    },
+    "PipelineBuildSynthCdkBuildProjectRoleDefaultPolicyFB6C941C": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":logs:us-east-2:315997497220:log-group:/aws/codebuild/",
+                      {
+                        "Ref": "PipelineBuildSynthCdkBuildProject6BEFA8E6"
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":logs:us-east-2:315997497220:log-group:/aws/codebuild/",
+                      {
+                        "Ref": "PipelineBuildSynthCdkBuildProject6BEFA8E6"
+                      },
+                      ":*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": [
+                "codebuild:CreateReportGroup",
+                "codebuild:CreateReport",
+                "codebuild:UpdateReport",
+                "codebuild:BatchPutTestCases",
+                "codebuild:BatchPutCodeCoverages"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":codebuild:us-east-2:315997497220:report-group/",
+                    {
+                      "Ref": "PipelineBuildSynthCdkBuildProject6BEFA8E6"
+                    },
+                    "-*"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject",
+                "s3:PutObjectLegalHold",
+                "s3:PutObjectRetention",
+                "s3:PutObjectTagging",
+                "s3:PutObjectVersionTagging",
+                "s3:Abort*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "PipelineArtifactsBucketAEA9A052",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "PipelineArtifactsBucketAEA9A052",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelineBuildSynthCdkBuildProjectRoleDefaultPolicyFB6C941C",
+        "Roles": [
+          {
+            "Ref": "PipelineBuildSynthCdkBuildProjectRole231EEA2A"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Build/Synth/CdkBuildProject/Role/DefaultPolicy/Resource"
+      }
+    },
+    "PipelineBuildSynthCdkBuildProject6BEFA8E6": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Artifacts": {
+          "Type": "CODEPIPELINE"
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/standard:5.0",
+          "ImagePullCredentialsType": "CODEBUILD",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER"
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "PipelineBuildSynthCdkBuildProjectRole231EEA2A",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"build\": {\n      \"commands\": [\n        \"ls && cd AbdulBasit/sprint_5/\",\n        \"pip install -r requirements.txt\",\n        \"npm install -g aws-cdk\",\n        \"cdk synth\"\n      ]\n    }\n  },\n  \"artifacts\": {\n    \"base-directory\": \"AbdulBasit/sprint_5/cdk.out\",\n    \"files\": \"**/*\"\n  }\n}",
+          "Type": "CODEPIPELINE"
+        },
+        "Cache": {
+          "Type": "NO_CACHE"
+        },
+        "Description": "Pipeline step BasittPipeLineSprintfive/Pipeline/Build/Synth",
+        "EncryptionKey": "alias/aws/s3",
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Build/Synth/CdkBuildProject/Resource"
+      }
+    },
+    "PipelineBuildSynthCodePipelineActionRole4E7A6C97": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::315997497220:root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Build/Synth/CodePipelineActionRole/Resource"
+      }
+    },
+    "PipelineBuildSynthCodePipelineActionRoleDefaultPolicy92C90290": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineBuildSynthCdkBuildProject6BEFA8E6",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelineBuildSynthCodePipelineActionRoleDefaultPolicy92C90290",
+        "Roles": [
+          {
+            "Ref": "PipelineBuildSynthCodePipelineActionRole4E7A6C97"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Build/Synth/CodePipelineActionRole/DefaultPolicy/Resource"
+      }
+    },
+    "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleD6D4E5CF": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::315997497220:root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/Resource"
+      }
+    },
+    "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleDefaultPolicyE626265B": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineUpdatePipelineSelfMutationDAA41400",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleDefaultPolicyE626265B",
+        "Roles": [
+          {
+            "Ref": "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleD6D4E5CF"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/DefaultPolicy/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset1CodePipelineActionRoleC0EC649A": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::315997497220:root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Assets/FileAsset1/CodePipelineActionRole/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset1CodePipelineActionRoleDefaultPolicy5F0BE7E8": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineAssetsFileAsset185A67CB4",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelineAssetsFileAsset1CodePipelineActionRoleDefaultPolicy5F0BE7E8",
+        "Roles": [
+          {
+            "Ref": "PipelineAssetsFileAsset1CodePipelineActionRoleC0EC649A"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Assets/FileAsset1/CodePipelineActionRole/DefaultPolicy/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset2CodePipelineActionRole06965A59": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::315997497220:root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Assets/FileAsset2/CodePipelineActionRole/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset2CodePipelineActionRoleDefaultPolicy2399F4BC": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineAssetsFileAsset24D2D639B",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelineAssetsFileAsset2CodePipelineActionRoleDefaultPolicy2399F4BC",
+        "Roles": [
+          {
+            "Ref": "PipelineAssetsFileAsset2CodePipelineActionRole06965A59"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Assets/FileAsset2/CodePipelineActionRole/DefaultPolicy/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset3CodePipelineActionRole99229BA9": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::315997497220:root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Assets/FileAsset3/CodePipelineActionRole/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset3CodePipelineActionRoleDefaultPolicy5C399808": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineAssetsFileAsset3FE71B523",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelineAssetsFileAsset3CodePipelineActionRoleDefaultPolicy5C399808",
+        "Roles": [
+          {
+            "Ref": "PipelineAssetsFileAsset3CodePipelineActionRole99229BA9"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Assets/FileAsset3/CodePipelineActionRole/DefaultPolicy/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset4CodePipelineActionRole492E1DB6": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::315997497220:root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Assets/FileAsset4/CodePipelineActionRole/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset4CodePipelineActionRoleDefaultPolicy7F51ED2C": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineAssetsFileAsset474303B7D",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelineAssetsFileAsset4CodePipelineActionRoleDefaultPolicy7F51ED2C",
+        "Roles": [
+          {
+            "Ref": "PipelineAssetsFileAsset4CodePipelineActionRole492E1DB6"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Assets/FileAsset4/CodePipelineActionRole/DefaultPolicy/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset5CodePipelineActionRole7F5BE01A": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::315997497220:root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Assets/FileAsset5/CodePipelineActionRole/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset5CodePipelineActionRoleDefaultPolicy5FB4CDE8": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineAssetsFileAsset5184A5C2F",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelineAssetsFileAsset5CodePipelineActionRoleDefaultPolicy5FB4CDE8",
+        "Roles": [
+          {
+            "Ref": "PipelineAssetsFileAsset5CodePipelineActionRole7F5BE01A"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Assets/FileAsset5/CodePipelineActionRole/DefaultPolicy/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset6CodePipelineActionRoleB00CC4C9": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::315997497220:root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Assets/FileAsset6/CodePipelineActionRole/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset6CodePipelineActionRoleDefaultPolicyD33137F9": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineAssetsFileAsset669C72F3C",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelineAssetsFileAsset6CodePipelineActionRoleDefaultPolicyD33137F9",
+        "Roles": [
+          {
+            "Ref": "PipelineAssetsFileAsset6CodePipelineActionRoleB00CC4C9"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Assets/FileAsset6/CodePipelineActionRole/DefaultPolicy/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset7CodePipelineActionRole0E00FBA5": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::315997497220:root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Assets/FileAsset7/CodePipelineActionRole/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset7CodePipelineActionRoleDefaultPolicy1B7E08D1": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineAssetsFileAsset7A51C54D0",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelineAssetsFileAsset7CodePipelineActionRoleDefaultPolicy1B7E08D1",
+        "Roles": [
+          {
+            "Ref": "PipelineAssetsFileAsset7CodePipelineActionRole0E00FBA5"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Assets/FileAsset7/CodePipelineActionRole/DefaultPolicy/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset8CodePipelineActionRole000E8EFE": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::315997497220:root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Assets/FileAsset8/CodePipelineActionRole/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset8CodePipelineActionRoleDefaultPolicy5F8E853D": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineAssetsFileAsset81DAB433B",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelineAssetsFileAsset8CodePipelineActionRoleDefaultPolicy5F8E853D",
+        "Roles": [
+          {
+            "Ref": "PipelineAssetsFileAsset8CodePipelineActionRole000E8EFE"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Assets/FileAsset8/CodePipelineActionRole/DefaultPolicy/Resource"
+      }
+    },
+    "PipelinebetaunittestRoleDE987435": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codebuild.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/beta/unit_test/unit_test/Role/Resource"
+      }
+    },
+    "PipelinebetaunittestRoleDefaultPolicyA7E5A377": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":logs:us-east-2:315997497220:log-group:/aws/codebuild/",
+                      {
+                        "Ref": "PipelinebetaunittestB8C07903"
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":logs:us-east-2:315997497220:log-group:/aws/codebuild/",
+                      {
+                        "Ref": "PipelinebetaunittestB8C07903"
+                      },
+                      ":*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": [
+                "codebuild:CreateReportGroup",
+                "codebuild:CreateReport",
+                "codebuild:UpdateReport",
+                "codebuild:BatchPutTestCases",
+                "codebuild:BatchPutCodeCoverages"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":codebuild:us-east-2:315997497220:report-group/",
+                    {
+                      "Ref": "PipelinebetaunittestB8C07903"
+                    },
+                    "-*"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "PipelineArtifactsBucketAEA9A052",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "PipelineArtifactsBucketAEA9A052",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelinebetaunittestRoleDefaultPolicyA7E5A377",
+        "Roles": [
+          {
+            "Ref": "PipelinebetaunittestRoleDE987435"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/beta/unit_test/unit_test/Role/DefaultPolicy/Resource"
+      }
+    },
+    "PipelinebetaunittestB8C07903": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Artifacts": {
+          "Type": "CODEPIPELINE"
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/standard:5.0",
+          "ImagePullCredentialsType": "CODEBUILD",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER"
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "PipelinebetaunittestRoleDE987435",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"build\": {\n      \"commands\": [\n        \"ls && cd AbdulBasit/sprint_5/\",\n        \"pip install -r requirements-dev.txt\",\n        \"python -m pytest -vv tests/\"\n      ]\n    }\n  }\n}",
+          "Type": "CODEPIPELINE"
+        },
+        "Cache": {
+          "Type": "NO_CACHE"
+        },
+        "Description": "Pipeline step BasittPipeLineSprintfive/Pipeline/beta/unit_test",
+        "EncryptionKey": "alias/aws/s3",
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/beta/unit_test/unit_test/Resource"
+      }
+    },
+    "PipelinebetaunittestCodePipelineActionRoleA0506F07": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::315997497220:root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/beta/unit_test/CodePipelineActionRole/Resource"
+      }
+    },
+    "PipelinebetaunittestCodePipelineActionRoleDefaultPolicy7B7E138C": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelinebetaunittestB8C07903",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelinebetaunittestCodePipelineActionRoleDefaultPolicy7B7E138C",
+        "Roles": [
+          {
+            "Ref": "PipelinebetaunittestCodePipelineActionRoleA0506F07"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/beta/unit_test/CodePipelineActionRole/DefaultPolicy/Resource"
+      }
+    },
+    "PipelinebetaBasitpyrestDockerRole3CF7EB97": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codebuild.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/beta/BasitpyrestDocker/BasitpyrestDocker/Role/Resource"
+      }
+    },
+    "PipelinebetaBasitpyrestDockerRoleDefaultPolicy9F734641": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":logs:us-east-2:315997497220:log-group:/aws/codebuild/",
+                      {
+                        "Ref": "PipelinebetaBasitpyrestDockerEB90FB9E"
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":logs:us-east-2:315997497220:log-group:/aws/codebuild/",
+                      {
+                        "Ref": "PipelinebetaBasitpyrestDockerEB90FB9E"
+                      },
+                      ":*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": [
+                "codebuild:CreateReportGroup",
+                "codebuild:CreateReport",
+                "codebuild:UpdateReport",
+                "codebuild:BatchPutTestCases",
+                "codebuild:BatchPutCodeCoverages"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":codebuild:us-east-2:315997497220:report-group/",
+                    {
+                      "Ref": "PipelinebetaBasitpyrestDockerEB90FB9E"
+                    },
+                    "-*"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "PipelineArtifactsBucketAEA9A052",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "PipelineArtifactsBucketAEA9A052",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelinebetaBasitpyrestDockerRoleDefaultPolicy9F734641",
+        "Roles": [
+          {
+            "Ref": "PipelinebetaBasitpyrestDockerRole3CF7EB97"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/beta/BasitpyrestDocker/BasitpyrestDocker/Role/DefaultPolicy/Resource"
+      }
+    },
+    "PipelinebetaBasitpyrestDockerEB90FB9E": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Artifacts": {
+          "Type": "CODEPIPELINE"
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "docker:dind",
+          "ImagePullCredentialsType": "SERVICE_ROLE",
+          "PrivilegedMode": true,
+          "Type": "LINUX_CONTAINER"
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "PipelinebetaBasitpyrestDockerRole3CF7EB97",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &\",\n        \"timeout 15 sh -c \\\"until docker info; do echo .; sleep 1; done\\\"\"\n      ]\n    },\n    \"pre_build\": {\n      \"commands\": [\n        \"ls && cd AbdulBasit/sprint_5/pyrest\",\n        \"docker build -t api-test-basit .\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"docker run api-test-basit  https://2nq8trov1c.execute-api.us-west-1.amazonaws.com/prod api_test.yml\"\n      ]\n    }\n  }\n}",
+          "Type": "CODEPIPELINE"
+        },
+        "Cache": {
+          "Type": "NO_CACHE"
+        },
+        "Description": "Pipeline step BasittPipeLineSprintfive/Pipeline/beta/BasitpyrestDocker",
+        "EncryptionKey": "alias/aws/s3",
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/beta/BasitpyrestDocker/BasitpyrestDocker/Resource"
+      }
+    },
+    "PipelinebetaBasitpyrestDockerCodePipelineActionRole250CDBE7": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::315997497220:root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/beta/BasitpyrestDocker/CodePipelineActionRole/Resource"
+      }
+    },
+    "PipelinebetaBasitpyrestDockerCodePipelineActionRoleDefaultPolicy1632D0C6": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelinebetaBasitpyrestDockerEB90FB9E",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelinebetaBasitpyrestDockerCodePipelineActionRoleDefaultPolicy1632D0C6",
+        "Roles": [
+          {
+            "Ref": "PipelinebetaBasitpyrestDockerCodePipelineActionRole250CDBE7"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/beta/BasitpyrestDocker/CodePipelineActionRole/DefaultPolicy/Resource"
+      }
+    },
+    "PipelineProdPromoteToProdCodePipelineActionRole08AAED6C": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::315997497220:root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Pipeline/Prod/PromoteToProd/CodePipelineActionRole/Resource"
+      }
+    },
+    "PipelineUpdatePipelineSelfMutationRole57E559E8": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codebuild.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/UpdatePipeline/SelfMutation/Role/Resource"
+      }
+    },
+    "PipelineUpdatePipelineSelfMutationRoleDefaultPolicyA225DA4E": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":logs:us-east-2:315997497220:log-group:/aws/codebuild/",
+                      {
+                        "Ref": "PipelineUpdatePipelineSelfMutationDAA41400"
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":logs:us-east-2:315997497220:log-group:/aws/codebuild/",
+                      {
+                        "Ref": "PipelineUpdatePipelineSelfMutationDAA41400"
+                      },
+                      ":*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": [
+                "codebuild:CreateReportGroup",
+                "codebuild:CreateReport",
+                "codebuild:UpdateReport",
+                "codebuild:BatchPutTestCases",
+                "codebuild:BatchPutCodeCoverages"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":codebuild:us-east-2:315997497220:report-group/",
+                    {
+                      "Ref": "PipelineUpdatePipelineSelfMutationDAA41400"
+                    },
+                    "-*"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Condition": {
+                "ForAnyValue:StringEquals": {
+                  "iam:ResourceTag/aws-cdk:bootstrap-role": [
+                    "image-publishing",
+                    "file-publishing",
+                    "deploy"
+                  ]
+                }
+              },
+              "Effect": "Allow",
+              "Resource": "arn:*:iam::315997497220:role/*"
+            },
+            {
+              "Action": "cloudformation:DescribeStacks",
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": "s3:ListBucket",
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "PipelineArtifactsBucketAEA9A052",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "PipelineArtifactsBucketAEA9A052",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelineUpdatePipelineSelfMutationRoleDefaultPolicyA225DA4E",
+        "Roles": [
+          {
+            "Ref": "PipelineUpdatePipelineSelfMutationRole57E559E8"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/UpdatePipeline/SelfMutation/Role/DefaultPolicy/Resource"
+      }
+    },
+    "PipelineUpdatePipelineSelfMutationDAA41400": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Artifacts": {
+          "Type": "CODEPIPELINE"
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/standard:5.0",
+          "ImagePullCredentialsType": "CODEBUILD",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER"
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "PipelineUpdatePipelineSelfMutationRole57E559E8",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g aws-cdk@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk -a . deploy BasittPipeLineSprintfive --require-approval=never --verbose\"\n      ]\n    }\n  }\n}",
+          "Type": "CODEPIPELINE"
+        },
+        "Cache": {
+          "Type": "NO_CACHE"
+        },
+        "Description": "Pipeline step BasittPipeLineSprintfive/Pipeline/UpdatePipeline/SelfMutate",
+        "EncryptionKey": "alias/aws/s3",
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/UpdatePipeline/SelfMutation/Resource"
+      }
+    },
+    "PipelineAssetsFileRole59943A77": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codebuild.amazonaws.com"
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::315997497220:root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Assets/FileRole/Resource"
+      }
+    },
+    "PipelineAssetsFileRoleDefaultPolicy14DB8755": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":logs:us-east-2:315997497220:log-group:/aws/codebuild/*"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "codebuild:CreateReportGroup",
+                "codebuild:CreateReport",
+                "codebuild:UpdateReport",
+                "codebuild:BatchPutTestCases",
+                "codebuild:BatchPutCodeCoverages"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":codebuild:us-east-2:315997497220:report-group/*"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Sub": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+                }
+              ]
+            },
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "PipelineArtifactsBucketAEA9A052",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "PipelineArtifactsBucketAEA9A052",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelineAssetsFileRoleDefaultPolicy14DB8755",
+        "Roles": [
+          {
+            "Ref": "PipelineAssetsFileRole59943A77"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Assets/FileRole/DefaultPolicy/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset185A67CB4": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Artifacts": {
+          "Type": "CODEPIPELINE"
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/standard:5.0",
+          "ImagePullCredentialsType": "CODEBUILD",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER"
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "PipelineAssetsFileRole59943A77",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-BasittPipeLineSprintfive-beta/BasittPipeLineSprintfivebetaBasitstepstageSprint5D6A12225.assets.json\\\" --verbose publish \\\"be7faccb00339943b75d71a98f51dec91510f22f601ce45809a3cdf4eadb98ee:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}",
+          "Type": "CODEPIPELINE"
+        },
+        "Cache": {
+          "Type": "NO_CACHE"
+        },
+        "Description": "Pipeline step BasittPipeLineSprintfive/Pipeline/Assets/FileAsset1",
+        "EncryptionKey": "alias/aws/s3",
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Assets/FileAsset1/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset24D2D639B": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Artifacts": {
+          "Type": "CODEPIPELINE"
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/standard:5.0",
+          "ImagePullCredentialsType": "CODEBUILD",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER"
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "PipelineAssetsFileRole59943A77",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-BasittPipeLineSprintfive-beta/BasittPipeLineSprintfivebetaBasitstepstageSprint5D6A12225.assets.json\\\" --verbose publish \\\"bdb08b9984816ecf43301a0c6d8913e270ee2448940b6b95e430dd222a4d90be:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}",
+          "Type": "CODEPIPELINE"
+        },
+        "Cache": {
+          "Type": "NO_CACHE"
+        },
+        "Description": "Pipeline step BasittPipeLineSprintfive/Pipeline/Assets/FileAsset2",
+        "EncryptionKey": "alias/aws/s3",
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Assets/FileAsset2/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset3FE71B523": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Artifacts": {
+          "Type": "CODEPIPELINE"
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/standard:5.0",
+          "ImagePullCredentialsType": "CODEBUILD",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER"
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "PipelineAssetsFileRole59943A77",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-BasittPipeLineSprintfive-beta/BasittPipeLineSprintfivebetaBasitstepstageSprint5D6A12225.assets.json\\\" --verbose publish \\\"1c01d2d8b64c1137402c4c220729bfc94fa9ad4065e2a86915f75ebd8b1fa2c4:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}",
+          "Type": "CODEPIPELINE"
+        },
+        "Cache": {
+          "Type": "NO_CACHE"
+        },
+        "Description": "Pipeline step BasittPipeLineSprintfive/Pipeline/Assets/FileAsset3",
+        "EncryptionKey": "alias/aws/s3",
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Assets/FileAsset3/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset474303B7D": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Artifacts": {
+          "Type": "CODEPIPELINE"
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/standard:5.0",
+          "ImagePullCredentialsType": "CODEBUILD",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER"
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "PipelineAssetsFileRole59943A77",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-BasittPipeLineSprintfive-beta/BasittPipeLineSprintfivebetaBasitstepstageSprint5D6A12225.assets.json\\\" --verbose publish \\\"dc4f68f05c4deb9ab720f82f124754acb41ac68a8a136519738df7c22ab316f6:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}",
+          "Type": "CODEPIPELINE"
+        },
+        "Cache": {
+          "Type": "NO_CACHE"
+        },
+        "Description": "Pipeline step BasittPipeLineSprintfive/Pipeline/Assets/FileAsset4",
+        "EncryptionKey": "alias/aws/s3",
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Assets/FileAsset4/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset5184A5C2F": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Artifacts": {
+          "Type": "CODEPIPELINE"
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/standard:5.0",
+          "ImagePullCredentialsType": "CODEBUILD",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER"
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "PipelineAssetsFileRole59943A77",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-BasittPipeLineSprintfive-beta/BasittPipeLineSprintfivebetaBasitstepstageSprint5D6A12225.assets.json\\\" --verbose publish \\\"4e09e63403b235ffda9db09367996f2d4c9fe1f7aa19b402908d8221614a282e:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}",
+          "Type": "CODEPIPELINE"
+        },
+        "Cache": {
+          "Type": "NO_CACHE"
+        },
+        "Description": "Pipeline step BasittPipeLineSprintfive/Pipeline/Assets/FileAsset5",
+        "EncryptionKey": "alias/aws/s3",
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Assets/FileAsset5/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset669C72F3C": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Artifacts": {
+          "Type": "CODEPIPELINE"
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/standard:5.0",
+          "ImagePullCredentialsType": "CODEBUILD",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER"
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "PipelineAssetsFileRole59943A77",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-BasittPipeLineSprintfive-beta/BasittPipeLineSprintfivebetaBasitstepstageSprint5D6A12225.assets.json\\\" --verbose publish \\\"adb84b5ca5d695fc560eb0840706941e1734a52078a6d323ee2496d906c872fc:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}",
+          "Type": "CODEPIPELINE"
+        },
+        "Cache": {
+          "Type": "NO_CACHE"
+        },
+        "Description": "Pipeline step BasittPipeLineSprintfive/Pipeline/Assets/FileAsset6",
+        "EncryptionKey": "alias/aws/s3",
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Assets/FileAsset6/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset7A51C54D0": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Artifacts": {
+          "Type": "CODEPIPELINE"
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/standard:5.0",
+          "ImagePullCredentialsType": "CODEBUILD",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER"
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "PipelineAssetsFileRole59943A77",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-BasittPipeLineSprintfive-beta/BasittPipeLineSprintfivebetaBasitstepstageSprint5D6A12225.assets.json\\\" --verbose publish \\\"c2c890901b737fcae2629ab67dc283c8c0d372275d7791ab4d1ec4d196acc9d7:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}",
+          "Type": "CODEPIPELINE"
+        },
+        "Cache": {
+          "Type": "NO_CACHE"
+        },
+        "Description": "Pipeline step BasittPipeLineSprintfive/Pipeline/Assets/FileAsset7",
+        "EncryptionKey": "alias/aws/s3",
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Assets/FileAsset7/Resource"
+      }
+    },
+    "PipelineAssetsFileAsset81DAB433B": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Artifacts": {
+          "Type": "CODEPIPELINE"
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/standard:5.0",
+          "ImagePullCredentialsType": "CODEBUILD",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER"
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "PipelineAssetsFileRole59943A77",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-BasittPipeLineSprintfive-beta/BasittPipeLineSprintfivebetaBasitstepstageSprint5D6A12225.assets.json\\\" --verbose publish \\\"dd549f646a3bee3f19805ac3f98769f254f0f8238a92d0dbe189718bc6373517:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}",
+          "Type": "CODEPIPELINE"
+        },
+        "Cache": {
+          "Type": "NO_CACHE"
+        },
+        "Description": "Pipeline step BasittPipeLineSprintfive/Pipeline/Assets/FileAsset8",
+        "EncryptionKey": "alias/aws/s3",
+        "Tags": [
+          {
+            "Key": "cohort",
+            "Value": "Voyager"
+          },
+          {
+            "Key": "name",
+            "Value": "Abdul Basit"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/Pipeline/Assets/FileAsset8/Resource"
+      }
+    },
+    "CDKMetadata": {
+      "Type": "AWS::CDK::Metadata",
+      "Properties": {
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/0VQ0W6DMAz8lr4Hb2ulSntcu5e9IfYBVRo85hJiFAdVKOLfFwKMpzvfnXyWj/B2hNeDfkph6rawdIf4HbRpVU89WnIocOUay3VSKXmLJimbD/Hfu/64jU9KThAvg2kxzPrKFijZkhl3eZknRbqDWLHNmzLuyS0zV98HsvXeW3p+oMk1K50UGn/TIhgEPjl1+K9ON/gxK7MHFfYsFNiPFy3p2gqFB29Q5Uj6QEOuyWesxqTKMfyyeznBGd4PDyEq/OACdQjVgn+ULzxzTAEAAA=="
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasittPipeLineSprintfive/CDKMetadata/Default"
+      }
+    }
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Type": "AWS::SSM::Parameter::Value<String>",
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+    }
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5"
+                  ],
+                  {
+                    "Ref": "BootstrapVersion"
+                  }
+                ]
+              }
+            ]
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+        }
+      ]
+    }
+  }
+}

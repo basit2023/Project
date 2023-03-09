@@ -1,0 +1,408 @@
+{
+  "version": "16.0.0",
+  "artifacts": {
+    "BasitPipeLineSprintProdBasitstepstageECRstack88774F1C.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "BasitPipeLineSprintProdBasitstepstageECRstack88774F1C.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "BasitPipeLineSprintProdBasitstepstageECRstack88774F1C": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "BasitPipeLineSprintProdBasitstepstageECRstack88774F1C.template.json",
+        "validateOnSynth": true,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/25e4c2662bb5d222cd73ad3c08ae7dc8a890d8a36930bbf080dcbf8537197dbc.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "BasitPipeLineSprintProdBasitstepstageECRstack88774F1C.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        },
+        "stackName": "Prod-BasitstepstageECRstack"
+      },
+      "dependencies": [
+        "BasitPipeLineSprintProdBasitstepstageECRstack88774F1C.assets"
+      ],
+      "metadata": {
+        "/BasitPipeLineSprint/Prod/BasitstepstageECRstack/Basit_ecr_repo/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BasitecrrepoD0A7045C"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECRstack/DeployDockerImage/CustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DeployDockerImageCustomResource1798FC60"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECRstack/Custom::CDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiB/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiBServiceRole8C8B0491"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECRstack/Custom::CDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiB/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiBServiceRoleDefaultPolicy280095F8"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECRstack/Custom::CDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiB28EAD8E4"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECRstack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECRstack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECRstack/Exports/Output{\"Ref\":\"BasitecrrepoD0A7045C\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefBasitecrrepoD0A7045C4E446E0B"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECRstack/Exports/Output{\"Fn::GetAtt\":[\"BasitecrrepoD0A7045C\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttBasitecrrepoD0A7045CArnFFDAB8EE"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECRstack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECRstack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "BasitPipeLineSprint/Prod/BasitstepstageECRstack"
+    },
+    "BasitPipeLineSprintProdBasitstepstageECSstackEA28694A.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "BasitPipeLineSprintProdBasitstepstageECSstackEA28694A.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "BasitPipeLineSprintProdBasitstepstageECSstackEA28694A": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "BasitPipeLineSprintProdBasitstepstageECSstackEA28694A.template.json",
+        "validateOnSynth": true,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/684cd9e47e1f43f4f4b3205cada7c0938046197e1e55a4cfe8f85de6e0babba2.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "BasitPipeLineSprintProdBasitstepstageECSstackEA28694A.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        },
+        "stackName": "Prod-BasitstepstageECSstack"
+      },
+      "dependencies": [
+        "BasitPipeLineSprintProdBasitstepstageECRstack88774F1C",
+        "BasitPipeLineSprintProdBasitstepstageECSstackEA28694A.assets"
+      ],
+      "metadata": {
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/repoName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "repoName"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpc04DF0FE6"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PublicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPublicSubnet1Subnet461FC547"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PublicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPublicSubnet1RouteTableA5B173FB"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PublicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPublicSubnet1RouteTableAssociationB208CCA3"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PublicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPublicSubnet1DefaultRoute10DF7799"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PublicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPublicSubnet1EIPAF0EFEDB"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PublicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPublicSubnet1NATGateway0293A3B7"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PublicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPublicSubnet2SubnetC0CCA1BD"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PublicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPublicSubnet2RouteTable95F4CB6C"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PublicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPublicSubnet2RouteTableAssociation7279829C"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PublicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPublicSubnet2DefaultRoute517493E2"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PublicSubnet2/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPublicSubnet2EIP3A70A4B3"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PublicSubnet2/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPublicSubnet2NATGateway580ED890"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PrivateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPrivateSubnet1SubnetA46A02F3"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PrivateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPrivateSubnet1RouteTable637166D7"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PrivateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPrivateSubnet1RouteTableAssociation006A9A21"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PrivateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPrivateSubnet1DefaultRoute43AF5198"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PrivateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPrivateSubnet2Subnet228CCA78"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PrivateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPrivateSubnet2RouteTableE6862634"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PrivateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPrivateSubnet2RouteTableAssociation6A51F9A6"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/PrivateSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcPrivateSubnet2DefaultRouteA919425F"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcIGWA13A7549"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_vpc/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsvpcVPCGWE0160802"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ECS_cluster/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ECSclusterEF4024D2"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ECS_cluster/ECS_cluster": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ECScluster11796F01"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs-task-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecstaskrole4F85ECE3"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ecs_task_log_group/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecstaskloggroupDF56FED4"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/FargateTaskDefinition/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateTaskDefinition8E3B365E"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/FargateTaskDefinition/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateTaskDefinitionExecutionRoleE69A8E33"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/FargateTaskDefinition/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FargateTaskDefinitionExecutionRoleDefaultPolicy1632DA52"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ECSservice/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ECSserviceServiceAC1F124C"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ECSservice/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ECSserviceSecurityGroup8A65F684"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/ECSservice/SecurityGroup/from BasitPipeLineSprintProdBasitstepstageECSstackLBSecurityGroup139B8EEB:8081": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ECSserviceSecurityGroupfromBasitPipeLineSprintProdBasitstepstageECSstackLBSecurityGroup139B8EEB808144B484ED"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/LB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LB8A12904C"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/LB/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LBSecurityGroup8A41EA2B"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/LB/SecurityGroup/to BasitPipeLineSprintProdBasitstepstageECSstackECSserviceSecurityGroupC72DBE15:8081": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LBSecurityGrouptoBasitPipeLineSprintProdBasitstepstageECSstackECSserviceSecurityGroupC72DBE1580811E0C41A2"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/LB/listener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LBlistenerE5D117CC"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/LB/listener/ECSGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LBlistenerECSGroupF029FDC8"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/LoadBalancerDNS": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LoadBalancerDNS"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/BasitPipeLineSprint/Prod/BasitstepstageECSstack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "BasitPipeLineSprint/Prod/BasitstepstageECSstack"
+    }
+  }
+}

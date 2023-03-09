@@ -1,0 +1,19 @@
+{
+  "version": "16.0.0",
+  "files": {
+    "6d1bb7d6487fc36c3c590a3d7f9f8913583efab28c07e4d3190ffdc0089586b8": {
+      "source": {
+        "path": "BasitPipeLineappbetaBasitstepstageECSstack58D685CA.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "6d1bb7d6487fc36c3c590a3d7f9f8913583efab28c07e4d3190ffdc0089586b8.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

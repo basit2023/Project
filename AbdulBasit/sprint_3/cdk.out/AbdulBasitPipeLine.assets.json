@@ -1,0 +1,19 @@
+{
+  "version": "16.0.0",
+  "files": {
+    "9a430572484ad13675e890381bbead2b94496ba02afb3a80d9860fac6683f65e": {
+      "source": {
+        "path": "AbdulBasitPipeLine.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "9a430572484ad13675e890381bbead2b94496ba02afb3a80d9860fac6683f65e.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

@@ -1,0 +1,34 @@
+{
+  "version": "16.0.0",
+  "files": {
+    "0fde5f4120406aa54da2f34cbee64b14b23d3b2a46ac932d941fc89d0ee5770b": {
+      "source": {
+        "path": "BasittPipeLineSprintfive.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "315997497220-us-east-2": {
+          "bucketName": "cdk-hnb659fds-assets-315997497220-us-east-2",
+          "objectKey": "0fde5f4120406aa54da2f34cbee64b14b23d3b2a46ac932d941fc89d0ee5770b.json",
+          "region": "us-east-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::315997497220:role/cdk-hnb659fds-file-publishing-role-315997497220-us-east-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {
+    "ed13ac287880c844d6f724207e207d110fa5543aa7b0109cee8c52333e844745": {
+      "source": {
+        "directory": "asset.ed13ac287880c844d6f724207e207d110fa5543aa7b0109cee8c52333e844745"
+      },
+      "destinations": {
+        "315997497220-us-east-2": {
+          "repositoryName": "cdk-hnb659fds-container-assets-315997497220-us-east-2",
+          "imageTag": "ed13ac287880c844d6f724207e207d110fa5543aa7b0109cee8c52333e844745",
+          "region": "us-east-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::315997497220:role/cdk-hnb659fds-image-publishing-role-315997497220-us-east-2"
+        }
+      }
+    }
+  }
+}

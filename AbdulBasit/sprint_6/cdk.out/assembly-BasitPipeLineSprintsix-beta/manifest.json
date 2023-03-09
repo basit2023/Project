@@ -1,0 +1,533 @@
+{
+  "version": "16.0.0",
+  "artifacts": {
+    "BasitPipeLineSprintsixbetaBasitstepstageSprint630DD820E.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "BasitPipeLineSprintsixbetaBasitstepstageSprint630DD820E.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "BasitPipeLineSprintsixbetaBasitstepstageSprint630DD820E": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "BasitPipeLineSprintsixbetaBasitstepstageSprint630DD820E.template.json",
+        "validateOnSynth": true,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/46b6ddae08a2f72fadc2ca565ef6c710430e3e93d12469663834be5c0afc80f1.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "BasitPipeLineSprintsixbetaBasitstepstageSprint630DD820E.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        },
+        "stackName": "beta-BasitstepstageSprint6"
+      },
+      "dependencies": [
+        "BasitPipeLineSprintsixbetaBasitstepstageSprint630DD820E.assets"
+      ],
+      "metadata": {
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Role1ABCC5F0"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RoleDefaultPolicy5FFB7DAB"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/basit_WebHealthLambda/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "basitWebHealthLambdaA5E06DCF"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/basit_WebHealthLambda/CurrentVersion/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "basitWebHealthLambdaCurrentVersionD43B8138170171870e0e208649f927b56d97808c"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/abdulbasitbucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "abdulbasitbucketC88E14C3"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/abdulbasitbucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "abdulbasitbucketPolicyB2E3CC42"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/abdulbasitbucket/AutoDeleteObjectsCustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "abdulbasitbucketAutoDeleteObjectsCustomResourceBB20B278"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/abdulbasitbucket/Notifications/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "abdulbasitbucketNotifications375847DF"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/abdulbasitbucket/AllowBucketNotificationsToBasitPipeLineSprintsixbetaBasitstepstageSprint6TableDynamoDBLambda78E0846A": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "abdulbasitbucketAllowBucketNotificationsToBasitPipeLineSprintsixbetaBasitstepstageSprint6TableDynamoDBLambda78E0846AA7FC2A3F"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/lambda-role-db/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lambdaroledb8F96FA37"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/lambda-role-db/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lambdaroledbDefaultPolicyAF35499B"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/Table_DynamoDB_Lambda/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TableDynamoDBLambda288091FA"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/abdulbasittable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "abdulbasittableBDBA8259"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BucketNotificationsHandler050a0587b7544547bf325f094a3db8347ECC3691"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/s3_resource/AwsCliLayer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "s3resourceAwsCliLayerF12E0A84"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/s3_resource/CustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "s3resourceCustomResource4AA3A5BF"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/basit_APILambda/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "basitAPILambda4034675C"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/basit_APILambda/InvokeServicePrincipal(apigateway.amazonaws.com)": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "basitAPILambdaInvokeServicePrincipalapigatewayamazonawscomE25FF044"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPI06A94A6B"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/CloudWatchRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPICloudWatchRoleE0FC7E43"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Account": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIAccount3766DB39"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Deployment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIDeployment11C57E8Bf7d25101e81bcaad3f5087063f404036"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/DeploymentStage.prod/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIDeploymentStageprod4C8979E7"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Endpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIEndpoint78A681A6"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/{proxy+}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIproxy7EBC519E"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/{proxy+}/ANY/ApiPermission.BasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8.ANY..{proxy+}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIproxyANYApiPermissionBasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8ANYproxyD278069F"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/{proxy+}/ANY/ApiPermission.Test.BasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8.ANY..{proxy+}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIproxyANYApiPermissionTestBasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8ANYproxyE8DC47FB"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/{proxy+}/ANY/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIproxyANY933F6FA2"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/ANY/ApiPermission.BasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8.ANY..": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIANYApiPermissionBasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8ANYF1E79110"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/ANY/ApiPermission.Test.BasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8.ANY..": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIANYApiPermissionTestBasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8ANYE87E32DB"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/ANY/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIANY0730FAF1"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/items/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsA37A8030"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/items/GET/ApiPermission.BasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8.GET..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsGETApiPermissionBasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8GETitemsD7092FD3"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/items/GET/ApiPermission.Test.BasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8.GET..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsGETApiPermissionTestBasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8GETitems390483BB"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/items/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsGET208348D3"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/items/PUT/ApiPermission.BasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8.PUT..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsPUTApiPermissionBasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8PUTitems0AF60F8C"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/items/PUT/ApiPermission.Test.BasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8.PUT..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsPUTApiPermissionTestBasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8PUTitems94218D60"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/items/PUT/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsPUT59416750"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/items/DELETE/ApiPermission.BasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8.DELETE..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsDELETEApiPermissionBasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8DELETEitemsF889297E"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/items/DELETE/ApiPermission.Test.BasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8.DELETE..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsDELETEApiPermissionTestBasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8DELETEitemsD784DFBE"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/items/DELETE/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsDELETE2CCE55E9"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/items/POST/ApiPermission.BasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8.POST..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsPOSTApiPermissionBasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8POSTitems16920270"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/items/POST/ApiPermission.Test.BasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8.POST..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsPOSTApiPermissionTestBasitPipeLineSprintsixbetaBasitstepstageSprint6AbdulBasitAPIE9D6E9E8POSTitems4DA6BF47"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitAPI/Default/items/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsPOSTF3B70884"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/Lambda_function_invocation/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Lambdafunctioninvocation10355D8D"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/Lambda_function_invocation/AllowEventRuleBasitPipeLineSprintsixbetaBasitstepstageSprint6basitWebHealthLambda9110FBFB": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdafunctioninvocationAllowEventRuleBasitPipeLineSprintsixbetaBasitstepstageSprint6basitWebHealthLambda9110FBFB8B26609B"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/Alarm Alert!/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AlarmAlert8BAEBE0F"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/Alarm Alert!/abdul.basit.skipq@gmail.com/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AlarmAlertabdulbasitskipqgmailcom67ECA517"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/www.skipq.org URL_Avalibality/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wwwskipqorgURLAvalibality6790E8E7"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/www.skipq.org URL_latency/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wwwskipqorgURLlatencyEA33BCC9"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/www.fiverr.com URL_Avalibality/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wwwfiverrcomURLAvalibalityECDE41A4"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/www.fiverr.com URL_latency/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wwwfiverrcomURLlatency64347A79"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/Role_AmazonDynamoDBFullAccess/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RoleAmazonDynamoDBFullAccess506A33E3"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/Role_AmazonDynamoDBFullAccess/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RoleAmazonDynamoDBFullAccessDefaultPolicy6C34340C"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitDynamoDBLambda/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitDynamoDBLambdaD34C62D3"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitDynamoDBLambda/AllowInvoke:BasitPipeLineSprintsixbetaBasitstepstageSprint6AlarmAlert6FA52020": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitDynamoDBLambdaAllowInvokeBasitPipeLineSprintsixbetaBasitstepstageSprint6AlarmAlert6FA52020AA058FD8"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitDynamoDBLambda/Alarm Alert!/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitDynamoDBLambdaAlarmAlertD3A58C9E"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/AbdulBasitDynamoDBLambda/CurrentVersion/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitDynamoDBLambdaCurrentVersion19CDC7189d1d2030b54bd28cf906b8a284bb7511"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/My_table_for_alarm_logs/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Mytableforalarmlogs62E34F60"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/alarm_for_faliure_metric_1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "alarmforfaliuremetric13F5E2D7C"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/alarm_for_faliure_metric_2/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "alarmforfaliuremetric2E9027A2A"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/Lambda_Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaAliasC91EBB8D"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/WebHealthDeployment/Application/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WebHealthDeploymentApplication84B48A30"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/WebHealthDeployment/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WebHealthDeploymentServiceRole283B6D79"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/WebHealthDeployment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WebHealthDeployment25900ABC"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/alarm_for_faliure_metric_1_wh/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "alarmforfaliuremetric1wh6D1EAA34"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/alarm_for_faliure_metric_2_wh/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "alarmforfaliuremetric2wh50163101"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/Lambda_Alias_wh/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaAliaswh83C43830"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/WebHealthDeployment_wh/Application/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WebHealthDeploymentwhApplicationC46537AE"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/WebHealthDeployment_wh/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WebHealthDeploymentwhServiceRole16D07AC1"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/WebHealthDeployment_wh/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WebHealthDeploymentwh9CCE2182"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/BasitPipeLineSprintsix/beta/BasitstepstageSprint6/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "BasitPipeLineSprintsix/beta/BasitstepstageSprint6"
+    }
+  }
+}

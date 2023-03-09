@@ -1,0 +1,1201 @@
+{
+  "Outputs": {
+    "repoName": {
+      "Value": {
+        "Fn::ImportValue": "beta-BasitstepstageECRstack:ExportsOutputRefBasitecrrepoD0A7045C4E446E0B"
+      }
+    },
+    "LoadBalancerDNS": {
+      "Value": {
+        "Fn::GetAtt": [
+          "LB8A12904C",
+          "DNSName"
+        ]
+      }
+    }
+  },
+  "Resources": {
+    "ecsvpc04DF0FE6": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/Resource"
+      }
+    },
+    "ecsvpcPublicSubnet1Subnet461FC547": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/18",
+        "VpcId": {
+          "Ref": "ecsvpc04DF0FE6"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public"
+          },
+          {
+            "Key": "Name",
+            "Value": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet1/Subnet"
+      }
+    },
+    "ecsvpcPublicSubnet1RouteTableA5B173FB": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "ecsvpc04DF0FE6"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet1/RouteTable"
+      }
+    },
+    "ecsvpcPublicSubnet1RouteTableAssociationB208CCA3": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ecsvpcPublicSubnet1RouteTableA5B173FB"
+        },
+        "SubnetId": {
+          "Ref": "ecsvpcPublicSubnet1Subnet461FC547"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet1/RouteTableAssociation"
+      }
+    },
+    "ecsvpcPublicSubnet1DefaultRoute10DF7799": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ecsvpcPublicSubnet1RouteTableA5B173FB"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "ecsvpcIGWA13A7549"
+        }
+      },
+      "DependsOn": [
+        "ecsvpcVPCGWE0160802"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet1/DefaultRoute"
+      }
+    },
+    "ecsvpcPublicSubnet1EIPAF0EFEDB": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet1/EIP"
+      }
+    },
+    "ecsvpcPublicSubnet1NATGateway0293A3B7": {
+      "Type": "AWS::EC2::NatGateway",
+      "Properties": {
+        "SubnetId": {
+          "Ref": "ecsvpcPublicSubnet1Subnet461FC547"
+        },
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "ecsvpcPublicSubnet1EIPAF0EFEDB",
+            "AllocationId"
+          ]
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet1/NATGateway"
+      }
+    },
+    "ecsvpcPublicSubnet2SubnetC0CCA1BD": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.64.0/18",
+        "VpcId": {
+          "Ref": "ecsvpc04DF0FE6"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public"
+          },
+          {
+            "Key": "Name",
+            "Value": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet2"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet2/Subnet"
+      }
+    },
+    "ecsvpcPublicSubnet2RouteTable95F4CB6C": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "ecsvpc04DF0FE6"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet2"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet2/RouteTable"
+      }
+    },
+    "ecsvpcPublicSubnet2RouteTableAssociation7279829C": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ecsvpcPublicSubnet2RouteTable95F4CB6C"
+        },
+        "SubnetId": {
+          "Ref": "ecsvpcPublicSubnet2SubnetC0CCA1BD"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet2/RouteTableAssociation"
+      }
+    },
+    "ecsvpcPublicSubnet2DefaultRoute517493E2": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ecsvpcPublicSubnet2RouteTable95F4CB6C"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "ecsvpcIGWA13A7549"
+        }
+      },
+      "DependsOn": [
+        "ecsvpcVPCGWE0160802"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet2/DefaultRoute"
+      }
+    },
+    "ecsvpcPublicSubnet2EIP3A70A4B3": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet2"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet2/EIP"
+      }
+    },
+    "ecsvpcPublicSubnet2NATGateway580ED890": {
+      "Type": "AWS::EC2::NatGateway",
+      "Properties": {
+        "SubnetId": {
+          "Ref": "ecsvpcPublicSubnet2SubnetC0CCA1BD"
+        },
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "ecsvpcPublicSubnet2EIP3A70A4B3",
+            "AllocationId"
+          ]
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet2"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PublicSubnet2/NATGateway"
+      }
+    },
+    "ecsvpcPrivateSubnet1SubnetA46A02F3": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.128.0/18",
+        "VpcId": {
+          "Ref": "ecsvpc04DF0FE6"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private"
+          },
+          {
+            "Key": "Name",
+            "Value": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PrivateSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PrivateSubnet1/Subnet"
+      }
+    },
+    "ecsvpcPrivateSubnet1RouteTable637166D7": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "ecsvpc04DF0FE6"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PrivateSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PrivateSubnet1/RouteTable"
+      }
+    },
+    "ecsvpcPrivateSubnet1RouteTableAssociation006A9A21": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ecsvpcPrivateSubnet1RouteTable637166D7"
+        },
+        "SubnetId": {
+          "Ref": "ecsvpcPrivateSubnet1SubnetA46A02F3"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PrivateSubnet1/RouteTableAssociation"
+      }
+    },
+    "ecsvpcPrivateSubnet1DefaultRoute43AF5198": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ecsvpcPrivateSubnet1RouteTable637166D7"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "ecsvpcPublicSubnet1NATGateway0293A3B7"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PrivateSubnet1/DefaultRoute"
+      }
+    },
+    "ecsvpcPrivateSubnet2Subnet228CCA78": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.192.0/18",
+        "VpcId": {
+          "Ref": "ecsvpc04DF0FE6"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private"
+          },
+          {
+            "Key": "Name",
+            "Value": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PrivateSubnet2"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PrivateSubnet2/Subnet"
+      }
+    },
+    "ecsvpcPrivateSubnet2RouteTableE6862634": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "ecsvpc04DF0FE6"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PrivateSubnet2"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PrivateSubnet2/RouteTable"
+      }
+    },
+    "ecsvpcPrivateSubnet2RouteTableAssociation6A51F9A6": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ecsvpcPrivateSubnet2RouteTableE6862634"
+        },
+        "SubnetId": {
+          "Ref": "ecsvpcPrivateSubnet2Subnet228CCA78"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PrivateSubnet2/RouteTableAssociation"
+      }
+    },
+    "ecsvpcPrivateSubnet2DefaultRouteA919425F": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ecsvpcPrivateSubnet2RouteTableE6862634"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "ecsvpcPublicSubnet2NATGateway580ED890"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/PrivateSubnet2/DefaultRoute"
+      }
+    },
+    "ecsvpcIGWA13A7549": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/IGW"
+      }
+    },
+    "ecsvpcVPCGWE0160802": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "ecsvpc04DF0FE6"
+        },
+        "InternetGatewayId": {
+          "Ref": "ecsvpcIGWA13A7549"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_vpc/VPCGW"
+      }
+    },
+    "ECSclusterEF4024D2": {
+      "Type": "AWS::ECS::Cluster",
+      "Properties": {
+        "ClusterName": "BasitFaragetCluster",
+        "ClusterSettings": [
+          {
+            "Name": "containerInsights",
+            "Value": "enabled"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ECS_cluster/Resource"
+      }
+    },
+    "ECScluster11796F01": {
+      "Type": "AWS::ECS::ClusterCapacityProviderAssociations",
+      "Properties": {
+        "CapacityProviders": [
+          "FARGATE",
+          "FARGATE_SPOT"
+        ],
+        "Cluster": {
+          "Ref": "ECSclusterEF4024D2"
+        },
+        "DefaultCapacityProviderStrategy": []
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ECS_cluster/ECS_cluster"
+      }
+    },
+    "ecstaskrole4F85ECE3": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "ecs tasks role for pakage",
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/AmazonS3FullAccess"
+              ]
+            ]
+          }
+        ],
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "sts:AssumeRole",
+                  "Effect": "Allow",
+                  "Resource": "*"
+                },
+                {
+                  "Action": "logs:*",
+                  "Effect": "Allow",
+                  "Resource": "*"
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "0"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs-task-role/Resource"
+      }
+    },
+    "ecstaskloggroupDF56FED4": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "RetentionInDays": 5
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ecs_task_log_group/Resource"
+      }
+    },
+    "FargateTaskDefinition8E3B365E": {
+      "Type": "AWS::ECS::TaskDefinition",
+      "Properties": {
+        "ContainerDefinitions": [
+          {
+            "Cpu": 256,
+            "Environment": [
+              {
+                "Name": "ENV1",
+                "Value": "environment variable"
+              }
+            ],
+            "Essential": true,
+            "Image": {
+              "Fn::Join": [
+                "",
+                [
+                  {
+                    "Fn::Select": [
+                      4,
+                      {
+                        "Fn::Split": [
+                          ":",
+                          {
+                            "Fn::ImportValue": "beta-BasitstepstageECRstack:ExportsOutputFnGetAttBasitecrrepoD0A7045CArnFFDAB8EE"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  ".dkr.ecr.",
+                  {
+                    "Fn::Select": [
+                      3,
+                      {
+                        "Fn::Split": [
+                          ":",
+                          {
+                            "Fn::ImportValue": "beta-BasitstepstageECRstack:ExportsOutputFnGetAttBasitecrrepoD0A7045CArnFFDAB8EE"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  ".",
+                  {
+                    "Ref": "AWS::URLSuffix"
+                  },
+                  "/",
+                  {
+                    "Fn::ImportValue": "beta-BasitstepstageECRstack:ExportsOutputRefBasitecrrepoD0A7045C4E446E0B"
+                  },
+                  ":latest"
+                ]
+              ]
+            },
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "ecstaskloggroupDF56FED4"
+                },
+                "awslogs-stream-prefix": "ecs_task",
+                "awslogs-region": {
+                  "Ref": "AWS::Region"
+                }
+              }
+            },
+            "Memory": 512,
+            "Name": "BasitTaskContainer",
+            "PortMappings": [
+              {
+                "ContainerPort": 8081,
+                "Protocol": "tcp"
+              }
+            ]
+          }
+        ],
+        "Cpu": "256",
+        "EphemeralStorage": {
+          "SizeInGiB": 21
+        },
+        "ExecutionRoleArn": {
+          "Fn::GetAtt": [
+            "FargateTaskDefinitionExecutionRoleE69A8E33",
+            "Arn"
+          ]
+        },
+        "Family": "ECS-Task-family",
+        "Memory": "512",
+        "NetworkMode": "awsvpc",
+        "RequiresCompatibilities": [
+          "FARGATE"
+        ],
+        "TaskRoleArn": {
+          "Fn::GetAtt": [
+            "ecstaskrole4F85ECE3",
+            "Arn"
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/FargateTaskDefinition/Resource"
+      }
+    },
+    "FargateTaskDefinitionExecutionRoleE69A8E33": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/FargateTaskDefinition/ExecutionRole/Resource"
+      }
+    },
+    "FargateTaskDefinitionExecutionRoleDefaultPolicy1632DA52": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::ImportValue": "beta-BasitstepstageECRstack:ExportsOutputFnGetAttBasitecrrepoD0A7045CArnFFDAB8EE"
+              }
+            },
+            {
+              "Action": "ecr:GetAuthorizationToken",
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "ecstaskloggroupDF56FED4",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "FargateTaskDefinitionExecutionRoleDefaultPolicy1632DA52",
+        "Roles": [
+          {
+            "Ref": "FargateTaskDefinitionExecutionRoleE69A8E33"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/FargateTaskDefinition/ExecutionRole/DefaultPolicy/Resource"
+      }
+    },
+    "ECSserviceServiceAC1F124C": {
+      "Type": "AWS::ECS::Service",
+      "Properties": {
+        "Cluster": {
+          "Ref": "ECSclusterEF4024D2"
+        },
+        "DeploymentConfiguration": {
+          "MaximumPercent": 100,
+          "MinimumHealthyPercent": 0
+        },
+        "DesiredCount": 2,
+        "EnableECSManagedTags": false,
+        "HealthCheckGracePeriodSeconds": 60,
+        "LaunchType": "FARGATE",
+        "LoadBalancers": [
+          {
+            "ContainerName": "BasitTaskContainer",
+            "ContainerPort": 8081,
+            "TargetGroupArn": {
+              "Ref": "LBlistenerECSGroupF029FDC8"
+            }
+          }
+        ],
+        "NetworkConfiguration": {
+          "AwsvpcConfiguration": {
+            "AssignPublicIp": "DISABLED",
+            "SecurityGroups": [
+              {
+                "Fn::GetAtt": [
+                  "ECSserviceSecurityGroup8A65F684",
+                  "GroupId"
+                ]
+              }
+            ],
+            "Subnets": [
+              {
+                "Ref": "ecsvpcPrivateSubnet1SubnetA46A02F3"
+              },
+              {
+                "Ref": "ecsvpcPrivateSubnet2Subnet228CCA78"
+              }
+            ]
+          }
+        },
+        "ServiceName": "ECSservice",
+        "TaskDefinition": {
+          "Ref": "FargateTaskDefinition8E3B365E"
+        }
+      },
+      "DependsOn": [
+        "LBlistenerECSGroupF029FDC8",
+        "LBlistenerE5D117CC"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ECSservice/Service"
+      }
+    },
+    "ECSserviceSecurityGroup8A65F684": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ECSservice/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1"
+          }
+        ],
+        "VpcId": {
+          "Ref": "ecsvpc04DF0FE6"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ECSservice/SecurityGroup/Resource"
+      }
+    },
+    "ECSserviceSecurityGroupfromBasitPipeLineSprintbetaBasitstepstageECSstackLBSecurityGroup624678DF80819F2D16FD": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "IpProtocol": "tcp",
+        "Description": "Load balancer to target",
+        "FromPort": 8081,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "ECSserviceSecurityGroup8A65F684",
+            "GroupId"
+          ]
+        },
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
+            "LBSecurityGroup8A41EA2B",
+            "GroupId"
+          ]
+        },
+        "ToPort": 8081
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/ECSservice/SecurityGroup/from BasitPipeLineSprintbetaBasitstepstageECSstackLBSecurityGroup624678DF:8081"
+      }
+    },
+    "LB8A12904C": {
+      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+      "Properties": {
+        "LoadBalancerAttributes": [
+          {
+            "Key": "deletion_protection.enabled",
+            "Value": "false"
+          }
+        ],
+        "Scheme": "internet-facing",
+        "SecurityGroups": [
+          {
+            "Fn::GetAtt": [
+              "LBSecurityGroup8A41EA2B",
+              "GroupId"
+            ]
+          }
+        ],
+        "Subnets": [
+          {
+            "Ref": "ecsvpcPublicSubnet1Subnet461FC547"
+          },
+          {
+            "Ref": "ecsvpcPublicSubnet2SubnetC0CCA1BD"
+          }
+        ],
+        "Type": "application"
+      },
+      "DependsOn": [
+        "ecsvpcPublicSubnet1DefaultRoute10DF7799",
+        "ecsvpcPublicSubnet2DefaultRoute517493E2"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/LB/Resource"
+      }
+    },
+    "LBSecurityGroup8A41EA2B": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Automatically created Security Group for ELB BasitPipeLineSprintbetaBasitstepstageECSstackLB1957B2CB",
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow from anyone on port 80",
+            "FromPort": 80,
+            "IpProtocol": "tcp",
+            "ToPort": 80
+          }
+        ],
+        "VpcId": {
+          "Ref": "ecsvpc04DF0FE6"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/LB/SecurityGroup/Resource"
+      }
+    },
+    "LBSecurityGrouptoBasitPipeLineSprintbetaBasitstepstageECSstackECSserviceSecurityGroup8718C98380819F743414": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "GroupId": {
+          "Fn::GetAtt": [
+            "LBSecurityGroup8A41EA2B",
+            "GroupId"
+          ]
+        },
+        "IpProtocol": "tcp",
+        "Description": "Load balancer to target",
+        "DestinationSecurityGroupId": {
+          "Fn::GetAtt": [
+            "ECSserviceSecurityGroup8A65F684",
+            "GroupId"
+          ]
+        },
+        "FromPort": 8081,
+        "ToPort": 8081
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/LB/SecurityGroup/to BasitPipeLineSprintbetaBasitstepstageECSstackECSserviceSecurityGroup8718C983:8081"
+      }
+    },
+    "LBlistenerE5D117CC": {
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+      "Properties": {
+        "DefaultActions": [
+          {
+            "TargetGroupArn": {
+              "Ref": "LBlistenerECSGroupF029FDC8"
+            },
+            "Type": "forward"
+          }
+        ],
+        "LoadBalancerArn": {
+          "Ref": "LB8A12904C"
+        },
+        "Port": 80,
+        "Protocol": "HTTP"
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/LB/listener/Resource"
+      }
+    },
+    "LBlistenerECSGroupF029FDC8": {
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+      "Properties": {
+        "Port": 80,
+        "Protocol": "HTTP",
+        "TargetGroupAttributes": [
+          {
+            "Key": "stickiness.enabled",
+            "Value": "false"
+          }
+        ],
+        "TargetType": "ip",
+        "VpcId": {
+          "Ref": "ecsvpc04DF0FE6"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/LB/listener/ECSGroup/Resource"
+      }
+    },
+    "CDKMetadata": {
+      "Type": "AWS::CDK::Metadata",
+      "Properties": {
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/31Ry27CMBD8Fu7GbanUqkeaUoSE2ihBXKuNY8IWY0d+BKEo/14nJiQtUk87nt1NZmZn9OGZ3k/gZKYsP0wFZrROLbADiXby09nSWeKbXzVnM1pvS9by2zgiscsEstRlktuWG1CinOUbyAQf+IGbG6MYgkUlr8MtWKzitnyAXYLlJziTWGPl4fDhlbRce9wPBCWX19x61fsjl5aknDmN9rzUypWdhn+JlSw0N+aGX3R0QzgztI6EM/7v7dAtjKAE5tdirSrMuR55NOQddAGteXN44zuU2Fv/yyhpASXXI+6ym3JdIQtxBtgQhCOtExVC7mqs/EG6VAJqiFCFl75WxdV4j70rAcYiEwryDARIhrKo/InnZemXO+1r33vtesHtr/d4Dn0I8jLT41F/4134q/UaRs+mIQk3yulgbox9HHkXQkPis90refdIn+jL5NsgTrWTFo+cJqH+AP1Z7KnFAgAA"
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLineSprint/beta/BasitstepstageECSstack/CDKMetadata/Default"
+      },
+      "Condition": "CDKMetadataAvailable"
+    }
+  },
+  "Conditions": {
+    "CDKMetadataAvailable": {
+      "Fn::Or": [
+        {
+          "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "af-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-east-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-northeast-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-northeast-2"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-southeast-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-southeast-2"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ca-central-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "cn-north-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "cn-northwest-1"
+              ]
+            }
+          ]
+        },
+        {
+          "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-central-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-north-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-west-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-west-2"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-west-3"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "me-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "sa-east-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-east-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-east-2"
+              ]
+            }
+          ]
+        },
+        {
+          "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-west-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-west-2"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Type": "AWS::SSM::Parameter::Value<String>",
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+    }
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5"
+                  ],
+                  {
+                    "Ref": "BootstrapVersion"
+                  }
+                ]
+              }
+            ]
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+        }
+      ]
+    }
+  }
+}

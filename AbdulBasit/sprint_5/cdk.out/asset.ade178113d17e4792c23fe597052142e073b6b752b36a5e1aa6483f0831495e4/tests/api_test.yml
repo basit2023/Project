@@ -1,0 +1,26 @@
+- config:
+    - testset: "Basic tests"
+    - timeout: 100  # Increase timeout from the default 10 seconds
+- test: 
+    - name: "api Get test"
+    - url: "/prod/"
+    - method: "GET"
+    
+################################################################################
+- test: 
+    - name: "api DELETE test"
+    - url: "/prod/"
+    - method: "DELETE"
+    - body: '{"link1": "www.fiverr.com"}'
+################################################################################
+- test: # create entity by PUT
+    - name: "put method"
+    - url: "/prod/"
+    - method: "PUT"
+    - body: '{"link1": "www.basit.com"}'
+#################################################################################
+- test: 
+    - name: "api DELETE test"
+    - url: "/prod/"
+    - method: "POST"
+    - body: '{"link1": "www.fiverr.com","link2": "www.basit.com}'

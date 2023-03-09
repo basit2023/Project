@@ -1,0 +1,1 @@
+URL_TO_MONITOR={'skipq':'www.skipq.org','fiverr':'www.fiverr.com','youtube':'www.youtube.com'}

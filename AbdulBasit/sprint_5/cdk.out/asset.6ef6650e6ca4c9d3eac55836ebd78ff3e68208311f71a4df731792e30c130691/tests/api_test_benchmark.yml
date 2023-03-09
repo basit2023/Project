@@ -1,0 +1,39 @@
+
+- benchmark: # create entity
+    - name: "GET operation"
+    - url: "/prod/"
+    - warmup_runs: 2               #warmup_runs: (default 10 if unspecified) run the benchmark calls this many times before starting to collect data
+    - 'benchmark_runs': '10'       # benchmark_runs: (default 100 if unspecified) run the benchmark this many times to collect data
+    - metrics:
+        - total_time
+        - total_time: mean
+- benchmark: 
+    - name: "Delete Operation"
+    - url: "/prod/"
+    - warmup_runs: 2               #warmup_runs: (default 10 if unspecified) run the benchmark calls this many times before starting to collect data
+    - method: "DELETE"
+    - 'benchmark_runs': '10'       # benchmark_runs: (default 100 if unspecified) run the benchmark this many times to collect data
+    - metrics:
+        - total_time
+        - total_time: mean
+        
+- benchmark: # create entity
+    - name: "Delete Operation"
+    - url: "/prod/"
+    - warmup_runs: 2               #warmup_runs: (default 10 if unspecified) run the benchmark calls this many times before starting to collect data
+    - method: "POST"
+    - 'benchmark_runs': '10'       # benchmark_runs: (default 100 if unspecified) run the benchmark this many times to collect data
+    - metrics:
+        - total_time
+        - total_time: mean
+
+- benchmark: # create entity
+    - name: "PUT Operation"
+    - url: "/prod/"
+    - warmup_runs: 2               #warmup_runs: (default 10 if unspecified) run the benchmark calls this many times before starting to collect data
+    - method: "PUT"
+    - 'benchmark_runs': '10'       # benchmark_runs: (default 100 if unspecified) run the benchmark this many times to collect data
+    - metrics:
+        - total_time
+        - total_time: mean
+

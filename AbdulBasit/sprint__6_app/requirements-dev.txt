@@ -1,0 +1,3 @@
+aws-cdk-lib==2.12.0
+pytest==6.2.5
+cdk_ecr_deployment

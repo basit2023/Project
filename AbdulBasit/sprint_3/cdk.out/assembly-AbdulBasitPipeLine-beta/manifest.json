@@ -1,0 +1,89 @@
+{
+  "version": "16.0.0",
+  "artifacts": {
+    "AbdulBasitPipeLinebetaBasitstepstageD0EFBE7C.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "AbdulBasitPipeLinebetaBasitstepstageD0EFBE7C.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "AbdulBasitPipeLinebetaBasitstepstageD0EFBE7C": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "AbdulBasitPipeLinebetaBasitstepstageD0EFBE7C.template.json",
+        "validateOnSynth": true,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/34fc3e43cbe88be518509eae9b11d9f9d3169dc261211ed632c0f870bdcf34a8.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "AbdulBasitPipeLinebetaBasitstepstageD0EFBE7C.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        },
+        "stackName": "beta-Basitstepstage"
+      },
+      "dependencies": [
+        "AbdulBasitPipeLinebetaBasitstepstageD0EFBE7C.assets"
+      ],
+      "metadata": {
+        "/AbdulBasitPipeLine/beta/Basitstepstage/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Role1ABCC5F0"
+          }
+        ],
+        "/AbdulBasitPipeLine/beta/Basitstepstage/basit_WebHealthLambda/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "basitWebHealthLambdaA5E06DCF"
+          }
+        ],
+        "/AbdulBasitPipeLine/beta/Basitstepstage/Lambda_function_invocation/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Lambdafunctioninvocation10355D8D"
+          }
+        ],
+        "/AbdulBasitPipeLine/beta/Basitstepstage/Lambda_function_invocation/AllowEventRuleAbdulBasitPipeLinebetaBasitstepstagebasitWebHealthLambda616DAA15": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdafunctioninvocationAllowEventRuleAbdulBasitPipeLinebetaBasitstepstagebasitWebHealthLambda616DAA1556476305"
+          }
+        ],
+        "/AbdulBasitPipeLine/beta/Basitstepstage/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/AbdulBasitPipeLine/beta/Basitstepstage/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/AbdulBasitPipeLine/beta/Basitstepstage/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/AbdulBasitPipeLine/beta/Basitstepstage/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "AbdulBasitPipeLine/beta/Basitstepstage"
+    }
+  }
+}

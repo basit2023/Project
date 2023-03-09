@@ -1,0 +1,361 @@
+{
+  "version": "16.0.0",
+  "artifacts": {
+    "assembly-BasitPipeLineSprintsix-beta": {
+      "type": "cdk:cloud-assembly",
+      "properties": {
+        "directoryName": "assembly-BasitPipeLineSprintsix-beta",
+        "displayName": "BasitPipeLineSprintsix/beta"
+      }
+    },
+    "assembly-BasitPipeLineSprintsix-Prod": {
+      "type": "cdk:cloud-assembly",
+      "properties": {
+        "directoryName": "assembly-BasitPipeLineSprintsix-Prod",
+        "displayName": "BasitPipeLineSprintsix/Prod"
+      }
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "BasitPipeLineSprintsix.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "BasitPipeLineSprintsix.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "BasitPipeLineSprintsix": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "BasitPipeLineSprintsix.template.json",
+        "tags": {
+          "cohort": "Voyager",
+          "name": "Abdul Basit"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/bfec1601d2ec45c704889dc84f5c8b9bb05aa1c19c53627606cf7dc44b1ddf02.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "BasitPipeLineSprintsix.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "BasitPipeLineSprintsix.assets"
+      ],
+      "metadata": {
+        "/BasitPipeLineSprintsix": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "cohort",
+                "Value": "Voyager"
+              },
+              {
+                "Key": "name",
+                "Value": "Abdul Basit"
+              }
+            ]
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/ArtifactsBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineArtifactsBucketAEA9A052"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/ArtifactsBucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineArtifactsBucketPolicyF53CCC52"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineRoleB27FAA37"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineRoleDefaultPolicy7BDC1ABB"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Pipeline9850B417"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Build/Synth/CdkBuildProject/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineBuildSynthCdkBuildProjectRole231EEA2A"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Build/Synth/CdkBuildProject/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineBuildSynthCdkBuildProjectRoleDefaultPolicyFB6C941C"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Build/Synth/CdkBuildProject/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineBuildSynthCdkBuildProject6BEFA8E6"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Build/Synth/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineBuildSynthCodePipelineActionRole4E7A6C97"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Build/Synth/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineBuildSynthCodePipelineActionRoleDefaultPolicy92C90290"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleD6D4E5CF"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleDefaultPolicyE626265B"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Assets/FileAsset1/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileAsset1CodePipelineActionRoleC0EC649A"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Assets/FileAsset1/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileAsset1CodePipelineActionRoleDefaultPolicy5F0BE7E8"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Assets/FileAsset2/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileAsset2CodePipelineActionRole06965A59"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Assets/FileAsset2/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileAsset2CodePipelineActionRoleDefaultPolicy2399F4BC"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Assets/FileAsset3/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileAsset3CodePipelineActionRole99229BA9"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Assets/FileAsset3/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileAsset3CodePipelineActionRoleDefaultPolicy5C399808"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Assets/FileAsset4/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileAsset4CodePipelineActionRole492E1DB6"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Assets/FileAsset4/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileAsset4CodePipelineActionRoleDefaultPolicy7F51ED2C"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Assets/FileAsset5/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileAsset5CodePipelineActionRole7F5BE01A"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Assets/FileAsset5/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileAsset5CodePipelineActionRoleDefaultPolicy5FB4CDE8"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/beta/unit_test/unit_test/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelinebetaunittestRoleDE987435"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/beta/unit_test/unit_test/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelinebetaunittestRoleDefaultPolicyA7E5A377"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/beta/unit_test/unit_test/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelinebetaunittestB8C07903"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/beta/unit_test/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelinebetaunittestCodePipelineActionRoleA0506F07"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/beta/unit_test/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelinebetaunittestCodePipelineActionRoleDefaultPolicy7B7E138C"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/beta/integration_test/integration_test/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelinebetaintegrationtestRole6A2FF671"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/beta/integration_test/integration_test/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelinebetaintegrationtestRoleDefaultPolicy71746E48"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/beta/integration_test/integration_test/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Pipelinebetaintegrationtest6728E910"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/beta/integration_test/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelinebetaintegrationtestCodePipelineActionRole79CCA2C4"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/beta/integration_test/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelinebetaintegrationtestCodePipelineActionRoleDefaultPolicy1796C709"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Pipeline/Prod/PromoteToProd/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineProdPromoteToProdCodePipelineActionRole08AAED6C"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/UpdatePipeline/SelfMutation/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineUpdatePipelineSelfMutationRole57E559E8"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/UpdatePipeline/SelfMutation/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineUpdatePipelineSelfMutationRoleDefaultPolicyA225DA4E"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/UpdatePipeline/SelfMutation/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineUpdatePipelineSelfMutationDAA41400"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Assets/FileRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileRole59943A77"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Assets/FileRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileRoleDefaultPolicy14DB8755"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Assets/FileAsset1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileAsset185A67CB4"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Assets/FileAsset2/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileAsset24D2D639B"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Assets/FileAsset3/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileAsset3FE71B523"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Assets/FileAsset4/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileAsset474303B7D"
+          }
+        ],
+        "/BasitPipeLineSprintsix/Pipeline/Assets/FileAsset5/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileAsset5184A5C2F"
+          }
+        ],
+        "/BasitPipeLineSprintsix/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/BasitPipeLineSprintsix/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/BasitPipeLineSprintsix/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/BasitPipeLineSprintsix/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "BasitPipeLineSprintsix"
+    }
+  }
+}

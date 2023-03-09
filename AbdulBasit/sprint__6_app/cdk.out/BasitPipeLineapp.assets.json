@@ -1,0 +1,19 @@
+{
+  "version": "16.0.0",
+  "files": {
+    "cdb0fa96acccc4ddaf1ab9bf47f2b1104adda4e870580b65dcb0f9eee159ca70": {
+      "source": {
+        "path": "BasitPipeLineapp.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "cdb0fa96acccc4ddaf1ab9bf47f2b1104adda4e870580b65dcb0f9eee159ca70.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

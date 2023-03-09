@@ -1,0 +1,19 @@
+{
+  "version": "16.0.0",
+  "files": {
+    "7ee162cecdc9ccee2d9a8a1dbe59c513b5c98a19aa6e69e4a576efc23ecf9151": {
+      "source": {
+        "path": "Sprint6AppStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "7ee162cecdc9ccee2d9a8a1dbe59c513b5c98a19aa6e69e4a576efc23ecf9151.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

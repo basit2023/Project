@@ -1,0 +1,557 @@
+{
+  "version": "16.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "BasitSprint4Stack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "BasitSprint4Stack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "BasitSprint4Stack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "BasitSprint4Stack.template.json",
+        "tags": {
+          "cohort": "Voyager",
+          "name": "Abdul Basit"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/793164e8c0e0b39fdc64060284d56081465f32987a7fad20590681a50e79e003.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "BasitSprint4Stack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "BasitSprint4Stack.assets"
+      ],
+      "metadata": {
+        "/BasitSprint4Stack": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "cohort",
+                "Value": "Voyager"
+              },
+              {
+                "Key": "name",
+                "Value": "Abdul Basit"
+              }
+            ]
+          }
+        ],
+        "/BasitSprint4Stack/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Role1ABCC5F0"
+          }
+        ],
+        "/BasitSprint4Stack/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RoleDefaultPolicy5FFB7DAB"
+          }
+        ],
+        "/BasitSprint4Stack/basit_WebHealthLambda/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "basitWebHealthLambdaA5E06DCF"
+          }
+        ],
+        "/BasitSprint4Stack/basit_WebHealthLambda/CurrentVersion/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "basitWebHealthLambdaCurrentVersionD43B81384631a7b4df31ae6ec432781843097451"
+          }
+        ],
+        "/BasitSprint4Stack/abdulbasitbucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "abdulbasitbucketC88E14C3"
+          }
+        ],
+        "/BasitSprint4Stack/abdulbasitbucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "abdulbasitbucketPolicyB2E3CC42"
+          }
+        ],
+        "/BasitSprint4Stack/abdulbasitbucket/AutoDeleteObjectsCustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "abdulbasitbucketAutoDeleteObjectsCustomResourceBB20B278"
+          }
+        ],
+        "/BasitSprint4Stack/abdulbasitbucket/Notifications/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "abdulbasitbucketNotifications375847DF"
+          }
+        ],
+        "/BasitSprint4Stack/abdulbasitbucket/AllowBucketNotificationsToBasitSprint4StackTableDynamoDBLambda18D18314": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "abdulbasitbucketAllowBucketNotificationsToBasitSprint4StackTableDynamoDBLambda18D1831492FFE8C6"
+          }
+        ],
+        "/BasitSprint4Stack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+          }
+        ],
+        "/BasitSprint4Stack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F"
+          }
+        ],
+        "/BasitSprint4Stack/lambda-role-db/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lambdaroledb8F96FA37"
+          }
+        ],
+        "/BasitSprint4Stack/lambda-role-db/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lambdaroledbDefaultPolicyAF35499B"
+          }
+        ],
+        "/BasitSprint4Stack/Table_DynamoDB_Lambda/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TableDynamoDBLambda288091FA"
+          }
+        ],
+        "/BasitSprint4Stack/abdulbasittable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "abdulbasittableBDBA8259"
+          }
+        ],
+        "/BasitSprint4Stack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC"
+          }
+        ],
+        "/BasitSprint4Stack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36"
+          }
+        ],
+        "/BasitSprint4Stack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BucketNotificationsHandler050a0587b7544547bf325f094a3db8347ECC3691"
+          }
+        ],
+        "/BasitSprint4Stack/s3_resource/AwsCliLayer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "s3resourceAwsCliLayerF12E0A84"
+          }
+        ],
+        "/BasitSprint4Stack/s3_resource/CustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "s3resourceCustomResource4AA3A5BF"
+          }
+        ],
+        "/BasitSprint4Stack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265"
+          }
+        ],
+        "/BasitSprint4Stack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF"
+          }
+        ],
+        "/BasitSprint4Stack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536"
+          }
+        ],
+        "/BasitSprint4Stack/basit_APILambda/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "basitAPILambda4034675C"
+          }
+        ],
+        "/BasitSprint4Stack/basit_APILambda/InvokeServicePrincipal(apigateway.amazonaws.com)": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "basitAPILambdaInvokeServicePrincipalapigatewayamazonawscomE25FF044"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPI06A94A6B"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/CloudWatchRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPICloudWatchRoleE0FC7E43"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Account": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIAccount3766DB39"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Deployment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIDeployment11C57E8B873af85f11a62a12198ecb468f56c252"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/DeploymentStage.prod/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIDeploymentStageprod4C8979E7"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Endpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIEndpoint78A681A6"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/{proxy+}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIproxy7EBC519E"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/{proxy+}/ANY/ApiPermission.BasitSprint4StackAbdulBasitAPI7506CC6A.ANY..{proxy+}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIproxyANYApiPermissionBasitSprint4StackAbdulBasitAPI7506CC6AANYproxy82EB8E92"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/{proxy+}/ANY/ApiPermission.Test.BasitSprint4StackAbdulBasitAPI7506CC6A.ANY..{proxy+}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIproxyANYApiPermissionTestBasitSprint4StackAbdulBasitAPI7506CC6AANYproxyE6B3F861"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/{proxy+}/ANY/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIproxyANY933F6FA2"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/ANY/ApiPermission.BasitSprint4StackAbdulBasitAPI7506CC6A.ANY..": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIANYApiPermissionBasitSprint4StackAbdulBasitAPI7506CC6AANYDC04D681"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/ANY/ApiPermission.Test.BasitSprint4StackAbdulBasitAPI7506CC6A.ANY..": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIANYApiPermissionTestBasitSprint4StackAbdulBasitAPI7506CC6AANYFD810DE7"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/ANY/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIANY0730FAF1"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/items/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsA37A8030"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/items/GET/ApiPermission.BasitSprint4StackAbdulBasitAPI7506CC6A.GET..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsGETApiPermissionBasitSprint4StackAbdulBasitAPI7506CC6AGETitems64420A14"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/items/GET/ApiPermission.Test.BasitSprint4StackAbdulBasitAPI7506CC6A.GET..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsGETApiPermissionTestBasitSprint4StackAbdulBasitAPI7506CC6AGETitemsA3597025"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/items/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsGET208348D3"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/items/PUT/ApiPermission.BasitSprint4StackAbdulBasitAPI7506CC6A.PUT..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsPUTApiPermissionBasitSprint4StackAbdulBasitAPI7506CC6APUTitemsF6C7ABDA"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/items/PUT/ApiPermission.Test.BasitSprint4StackAbdulBasitAPI7506CC6A.PUT..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsPUTApiPermissionTestBasitSprint4StackAbdulBasitAPI7506CC6APUTitemsDD1994BD"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/items/PUT/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsPUT59416750"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/items/DELETE/ApiPermission.BasitSprint4StackAbdulBasitAPI7506CC6A.DELETE..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsDELETEApiPermissionBasitSprint4StackAbdulBasitAPI7506CC6ADELETEitems4B18DDA7"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/items/DELETE/ApiPermission.Test.BasitSprint4StackAbdulBasitAPI7506CC6A.DELETE..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsDELETEApiPermissionTestBasitSprint4StackAbdulBasitAPI7506CC6ADELETEitems040A2E62"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/items/DELETE/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsDELETE2CCE55E9"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/items/POST/ApiPermission.BasitSprint4StackAbdulBasitAPI7506CC6A.POST..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsPOSTApiPermissionBasitSprint4StackAbdulBasitAPI7506CC6APOSTitemsFEF5D5E7"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/items/POST/ApiPermission.Test.BasitSprint4StackAbdulBasitAPI7506CC6A.POST..items": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsPOSTApiPermissionTestBasitSprint4StackAbdulBasitAPI7506CC6APOSTitems74D9B0AC"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitAPI/Default/items/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitAPIitemsPOSTF3B70884"
+          }
+        ],
+        "/BasitSprint4Stack/Lambda_function_invocation/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Lambdafunctioninvocation10355D8D"
+          }
+        ],
+        "/BasitSprint4Stack/Lambda_function_invocation/AllowEventRuleBasitSprint4StackbasitWebHealthLambda8B0809AF": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdafunctioninvocationAllowEventRuleBasitSprint4StackbasitWebHealthLambda8B0809AFA086778B"
+          }
+        ],
+        "/BasitSprint4Stack/Alarm Alert!/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AlarmAlert8BAEBE0F"
+          }
+        ],
+        "/BasitSprint4Stack/Alarm Alert!/abdul.basit.skipq@gmail.com/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AlarmAlertabdulbasitskipqgmailcom67ECA517"
+          }
+        ],
+        "/BasitSprint4Stack/www.skipq.org URL_Avalibality/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wwwskipqorgURLAvalibality6790E8E7"
+          }
+        ],
+        "/BasitSprint4Stack/www.skipq.org URL_latency/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wwwskipqorgURLlatencyEA33BCC9"
+          }
+        ],
+        "/BasitSprint4Stack/www.fiverr.com URL_Avalibality/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wwwfiverrcomURLAvalibalityECDE41A4"
+          }
+        ],
+        "/BasitSprint4Stack/www.fiverr.com URL_latency/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wwwfiverrcomURLlatency64347A79"
+          }
+        ],
+        "/BasitSprint4Stack/Role_AmazonDynamoDBFullAccess/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RoleAmazonDynamoDBFullAccess506A33E3"
+          }
+        ],
+        "/BasitSprint4Stack/Role_AmazonDynamoDBFullAccess/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RoleAmazonDynamoDBFullAccessDefaultPolicy6C34340C"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitDynamoDBLambda/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitDynamoDBLambdaD34C62D3"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitDynamoDBLambda/AllowInvoke:BasitSprint4StackAlarmAlert169A2911": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitDynamoDBLambdaAllowInvokeBasitSprint4StackAlarmAlert169A29119AF4DAEF"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitDynamoDBLambda/Alarm Alert!/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitDynamoDBLambdaAlarmAlertD3A58C9E"
+          }
+        ],
+        "/BasitSprint4Stack/AbdulBasitDynamoDBLambda/CurrentVersion/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AbdulBasitDynamoDBLambdaCurrentVersion19CDC71816b8e17988a903e5611194406431e6a1"
+          }
+        ],
+        "/BasitSprint4Stack/My_table_for_alarm_logs/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Mytableforalarmlogs62E34F60"
+          }
+        ],
+        "/BasitSprint4Stack/alarm_for_faliure_metric_1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "alarmforfaliuremetric13F5E2D7C"
+          }
+        ],
+        "/BasitSprint4Stack/alarm_for_faliure_metric_2/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "alarmforfaliuremetric2E9027A2A"
+          }
+        ],
+        "/BasitSprint4Stack/Lambda_Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaAliasC91EBB8D"
+          }
+        ],
+        "/BasitSprint4Stack/WebHealthDeployment/Application/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WebHealthDeploymentApplication84B48A30"
+          }
+        ],
+        "/BasitSprint4Stack/WebHealthDeployment/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WebHealthDeploymentServiceRole283B6D79"
+          }
+        ],
+        "/BasitSprint4Stack/WebHealthDeployment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WebHealthDeployment25900ABC"
+          }
+        ],
+        "/BasitSprint4Stack/alarm_for_faliure_metric_1_wh/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "alarmforfaliuremetric1wh6D1EAA34"
+          }
+        ],
+        "/BasitSprint4Stack/alarm_for_faliure_metric_2_wh/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "alarmforfaliuremetric2wh50163101"
+          }
+        ],
+        "/BasitSprint4Stack/Lambda_Alias_wh/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaAliaswh83C43830"
+          }
+        ],
+        "/BasitSprint4Stack/WebHealthDeployment_wh/Application/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WebHealthDeploymentwhApplicationC46537AE"
+          }
+        ],
+        "/BasitSprint4Stack/WebHealthDeployment_wh/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WebHealthDeploymentwhServiceRole16D07AC1"
+          }
+        ],
+        "/BasitSprint4Stack/WebHealthDeployment_wh/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WebHealthDeploymentwh9CCE2182"
+          }
+        ],
+        "/BasitSprint4Stack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/BasitSprint4Stack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/BasitSprint4Stack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/BasitSprint4Stack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "BasitSprint4Stack"
+    }
+  }
+}

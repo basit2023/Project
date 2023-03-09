@@ -1,0 +1,20 @@
+{
+  "version": "16.0.0",
+  "files": {
+    "b71e38cdb06684d34d21970f50906853a28e1d4f7ddb12392388bff9b454c360": {
+      "source": {
+        "path": "BasitECSstack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "315997497220-us-east-2": {
+          "bucketName": "cdk-hnb659fds-assets-315997497220-us-east-2",
+          "objectKey": "b71e38cdb06684d34d21970f50906853a28e1d4f7ddb12392388bff9b454c360.json",
+          "region": "us-east-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::315997497220:role/cdk-hnb659fds-file-publishing-role-315997497220-us-east-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
