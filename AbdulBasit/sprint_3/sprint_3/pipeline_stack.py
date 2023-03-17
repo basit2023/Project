@@ -29,7 +29,7 @@ class PipelineStack(Stack):
           The first stage of the pipeline retrieves a source artifact (an AWS CloudFormation template and its
           configuration files) from a repository.
         """
-        source=pipelines_.CodePipelineSource.git_hub("basit2023/Project/AbduBasit","main",
+        source=pipelines_.CodePipelineSource.git_hub("basit2023/Project","main",
                                                     authentication=cdk.SecretValue.secrets_manager("basit"),
                                                     trigger=action_.GitHubTrigger('POLL') #trigger repeatedly
                                                     )
