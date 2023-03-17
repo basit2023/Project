@@ -1,9 +1,851 @@
 {
   "Resources": {
+    "Role1ABCC5F0": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "showing logs on cloudwhatch",
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          },
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/CloudWatchFullAccess"
+              ]
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/Role/Resource"
+      }
+    },
+    "basitWebHealthLambdaA5E06DCF": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+          },
+          "S3Key": "77657da7157d60ae0209bf1478a86b07e3497c516479934bd1c98faac1f637ed.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "Role1ABCC5F0",
+            "Arn"
+          ]
+        },
+        "Handler": "WebHealthLambda.lambda_handler",
+        "Runtime": "python3.6",
+        "Timeout": 30
+      },
+      "DependsOn": [
+        "Role1ABCC5F0"
+      ],
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/basit_WebHealthLambda/Resource",
+        "aws:asset:path": "../asset.77657da7157d60ae0209bf1478a86b07e3497c516479934bd1c98faac1f637ed",
+        "aws:asset:is-bundled": false,
+        "aws:asset:property": "Code"
+      }
+    },
+    "basitWebHealthLambdaCurrentVersionD43B8138def7e4c3140461d5fbc41a83c977ff4f": {
+      "Type": "AWS::Lambda::Version",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "basitWebHealthLambdaA5E06DCF"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/basit_WebHealthLambda/CurrentVersion/Resource"
+      }
+    },
+    "Lambdafunctioninvocation10355D8D": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "Description": "periodic lambda",
+        "ScheduleExpression": "rate(1 minute)",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "basitWebHealthLambdaA5E06DCF",
+                "Arn"
+              ]
+            },
+            "Id": "Target0"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/Lambda_function_invocation/Resource"
+      }
+    },
+    "LambdafunctioninvocationAllowEventRuleBasitPipeLinebetaBasitstepstagebasitWebHealthLambda21B6EE2144AC5118": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "basitWebHealthLambdaA5E06DCF",
+            "Arn"
+          ]
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "Lambdafunctioninvocation10355D8D",
+            "Arn"
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/Lambda_function_invocation/AllowEventRuleBasitPipeLinebetaBasitstepstagebasitWebHealthLambda21B6EE21"
+      }
+    },
+    "AlarmAlert8BAEBE0F": {
+      "Type": "AWS::SNS::Topic",
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/Alarm Alert!/Resource"
+      }
+    },
+    "AlarmAlertabdulbasitskipqgmailcom67ECA517": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "Protocol": "email",
+        "TopicArn": {
+          "Ref": "AlarmAlert8BAEBE0F"
+        },
+        "Endpoint": "abdul.basit.skipq@gmail.com"
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/Alarm Alert!/abdul.basit.skipq@gmail.com/Resource"
+      }
+    },
+    "wwwskipqorgURLAvalibality6790E8E7": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ComparisonOperator": "LessThanThreshold",
+        "EvaluationPeriods": 1,
+        "AlarmActions": [
+          {
+            "Ref": "AlarmAlert8BAEBE0F"
+          }
+        ],
+        "Dimensions": [
+          {
+            "Name": "basit-url",
+            "Value": "www.skipq.org"
+          }
+        ],
+        "MetricName": "URL_Avalibality",
+        "Namespace": "AbdulBasit_webheathlambdametrics",
+        "Period": 60,
+        "Statistic": "Average",
+        "Threshold": 1,
+        "TreatMissingData": "breaching"
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/www.skipq.org URL_Avalibality/Resource"
+      }
+    },
+    "wwwskipqorgURLlatencyEA33BCC9": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ComparisonOperator": "LessThanThreshold",
+        "EvaluationPeriods": 1,
+        "AlarmActions": [
+          {
+            "Ref": "AlarmAlert8BAEBE0F"
+          }
+        ],
+        "Dimensions": [
+          {
+            "Name": "basit-url",
+            "Value": "www.skipq.org"
+          }
+        ],
+        "MetricName": "URL_latency",
+        "Namespace": "AbdulBasit_webheathlambdametrics",
+        "Period": 60,
+        "Statistic": "Average",
+        "Threshold": 0.25,
+        "TreatMissingData": "breaching"
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/www.skipq.org URL_latency/Resource"
+      }
+    },
+    "wwwfiverrcomURLAvalibalityECDE41A4": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ComparisonOperator": "LessThanThreshold",
+        "EvaluationPeriods": 1,
+        "AlarmActions": [
+          {
+            "Ref": "AlarmAlert8BAEBE0F"
+          }
+        ],
+        "Dimensions": [
+          {
+            "Name": "basit-url",
+            "Value": "www.fiverr.com"
+          }
+        ],
+        "MetricName": "URL_Avalibality",
+        "Namespace": "AbdulBasit_webheathlambdametrics",
+        "Period": 60,
+        "Statistic": "Average",
+        "Threshold": 1,
+        "TreatMissingData": "breaching"
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/www.fiverr.com URL_Avalibality/Resource"
+      }
+    },
+    "wwwfiverrcomURLlatency64347A79": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ComparisonOperator": "LessThanThreshold",
+        "EvaluationPeriods": 1,
+        "AlarmActions": [
+          {
+            "Ref": "AlarmAlert8BAEBE0F"
+          }
+        ],
+        "Dimensions": [
+          {
+            "Name": "basit-url",
+            "Value": "www.fiverr.com"
+          }
+        ],
+        "MetricName": "URL_latency",
+        "Namespace": "AbdulBasit_webheathlambdametrics",
+        "Period": 60,
+        "Statistic": "Average",
+        "Threshold": 0.25,
+        "TreatMissingData": "breaching"
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/www.fiverr.com URL_latency/Resource"
+      }
+    },
+    "RoleAmazonDynamoDBFullAccess506A33E3": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "Lambda Role forAmazonDynamoDBFullAccess",
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          },
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/AmazonDynamoDBFullAccess"
+              ]
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/Role_AmazonDynamoDBFullAccess/Resource"
+      }
+    },
+    "RoleAmazonDynamoDBFullAccessDefaultPolicy6C34340C": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "Mytableforalarmlogs62E34F60",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Ref": "AWS::NoValue"
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "RoleAmazonDynamoDBFullAccessDefaultPolicy6C34340C",
+        "Roles": [
+          {
+            "Ref": "RoleAmazonDynamoDBFullAccess506A33E3"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/Role_AmazonDynamoDBFullAccess/DefaultPolicy/Resource"
+      }
+    },
+    "AbdulBasitDynamoDBLambdaD34C62D3": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+          },
+          "S3Key": "77657da7157d60ae0209bf1478a86b07e3497c516479934bd1c98faac1f637ed.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "RoleAmazonDynamoDBFullAccess506A33E3",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "table_name": {
+              "Ref": "Mytableforalarmlogs62E34F60"
+            }
+          }
+        },
+        "Handler": "db_lambda.lambda_handler",
+        "Runtime": "python3.6",
+        "Timeout": 30
+      },
+      "DependsOn": [
+        "RoleAmazonDynamoDBFullAccessDefaultPolicy6C34340C",
+        "RoleAmazonDynamoDBFullAccess506A33E3"
+      ],
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/AbdulBasitDynamoDBLambda/Resource",
+        "aws:asset:path": "../asset.77657da7157d60ae0209bf1478a86b07e3497c516479934bd1c98faac1f637ed",
+        "aws:asset:is-bundled": false,
+        "aws:asset:property": "Code"
+      }
+    },
+    "AbdulBasitDynamoDBLambdaAllowInvokeBasitPipeLinebetaBasitstepstageAlarmAlertCD6D66C2C01A96C7": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "AbdulBasitDynamoDBLambdaD34C62D3",
+            "Arn"
+          ]
+        },
+        "Principal": "sns.amazonaws.com",
+        "SourceArn": {
+          "Ref": "AlarmAlert8BAEBE0F"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/AbdulBasitDynamoDBLambda/AllowInvoke:BasitPipeLinebetaBasitstepstageAlarmAlertCD6D66C2"
+      }
+    },
+    "AbdulBasitDynamoDBLambdaAlarmAlertD3A58C9E": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "Protocol": "lambda",
+        "TopicArn": {
+          "Ref": "AlarmAlert8BAEBE0F"
+        },
+        "Endpoint": {
+          "Fn::GetAtt": [
+            "AbdulBasitDynamoDBLambdaD34C62D3",
+            "Arn"
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/AbdulBasitDynamoDBLambda/Alarm Alert!/Resource"
+      }
+    },
+    "AbdulBasitDynamoDBLambdaCurrentVersion19CDC7181c0ef594323d0af26339571ad28c393e": {
+      "Type": "AWS::Lambda::Version",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "AbdulBasitDynamoDBLambdaD34C62D3"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/AbdulBasitDynamoDBLambda/CurrentVersion/Resource"
+      }
+    },
+    "Mytableforalarmlogs62E34F60": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "MessageId",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "MessageId",
+            "AttributeType": "S"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST"
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/My_table_for_alarm_logs/Resource"
+      }
+    },
+    "alarmforfaliuremetric13F5E2D7C": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ComparisonOperator": "LessThanThreshold",
+        "EvaluationPeriods": 1,
+        "AlarmActions": [
+          {
+            "Ref": "AlarmAlert8BAEBE0F"
+          }
+        ],
+        "Dimensions": [
+          {
+            "Name": "FunctioName",
+            "Value": {
+              "Ref": "AbdulBasitDynamoDBLambdaD34C62D3"
+            }
+          }
+        ],
+        "MetricName": "Duration",
+        "Namespace": "AWS/Lambda",
+        "Period": 300,
+        "Statistic": "Average",
+        "Threshold": 1
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/alarm_for_faliure_metric_1/Resource"
+      }
+    },
+    "alarmforfaliuremetric2E9027A2A": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ComparisonOperator": "LessThanThreshold",
+        "EvaluationPeriods": 1,
+        "AlarmActions": [
+          {
+            "Ref": "AlarmAlert8BAEBE0F"
+          }
+        ],
+        "Dimensions": [
+          {
+            "Name": "FunctioName",
+            "Value": {
+              "Ref": "AbdulBasitDynamoDBLambdaD34C62D3"
+            }
+          }
+        ],
+        "MetricName": "Errors",
+        "Namespace": "AWS/Lambda",
+        "Period": 300,
+        "Statistic": "Average",
+        "Threshold": 1
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/alarm_for_faliure_metric_2/Resource"
+      }
+    },
+    "LambdaAliasC91EBB8D": {
+      "Type": "AWS::Lambda::Alias",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "AbdulBasitDynamoDBLambdaD34C62D3"
+        },
+        "FunctionVersion": {
+          "Fn::GetAtt": [
+            "AbdulBasitDynamoDBLambdaCurrentVersion19CDC7181c0ef594323d0af26339571ad28c393e",
+            "Version"
+          ]
+        },
+        "Name": "current"
+      },
+      "UpdatePolicy": {
+        "CodeDeployLambdaAliasUpdate": {
+          "ApplicationName": {
+            "Ref": "WebHealthDeploymentApplication84B48A30"
+          },
+          "DeploymentGroupName": {
+            "Ref": "WebHealthDeployment25900ABC"
+          }
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/Lambda_Alias/Resource"
+      }
+    },
+    "WebHealthDeploymentApplication84B48A30": {
+      "Type": "AWS::CodeDeploy::Application",
+      "Properties": {
+        "ComputePlatform": "Lambda"
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/WebHealthDeployment/Application/Resource"
+      }
+    },
+    "WebHealthDeploymentServiceRole283B6D79": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "codedeploy.",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ".",
+                      {
+                        "Ref": "AWS::URLSuffix"
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSCodeDeployRoleForLambdaLimited"
+              ]
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/WebHealthDeployment/ServiceRole/Resource"
+      }
+    },
+    "WebHealthDeployment25900ABC": {
+      "Type": "AWS::CodeDeploy::DeploymentGroup",
+      "Properties": {
+        "ApplicationName": {
+          "Ref": "WebHealthDeploymentApplication84B48A30"
+        },
+        "ServiceRoleArn": {
+          "Fn::GetAtt": [
+            "WebHealthDeploymentServiceRole283B6D79",
+            "Arn"
+          ]
+        },
+        "AlarmConfiguration": {
+          "Alarms": [
+            {
+              "Name": {
+                "Ref": "alarmforfaliuremetric13F5E2D7C"
+              }
+            },
+            {
+              "Name": {
+                "Ref": "alarmforfaliuremetric2E9027A2A"
+              }
+            }
+          ],
+          "Enabled": true
+        },
+        "AutoRollbackConfiguration": {
+          "Enabled": true,
+          "Events": [
+            "DEPLOYMENT_FAILURE",
+            "DEPLOYMENT_STOP_ON_ALARM"
+          ]
+        },
+        "DeploymentConfigName": "CodeDeployDefault.LambdaLinear10PercentEvery1Minute",
+        "DeploymentStyle": {
+          "DeploymentOption": "WITH_TRAFFIC_CONTROL",
+          "DeploymentType": "BLUE_GREEN"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/WebHealthDeployment/Resource"
+      }
+    },
+    "alarmforfaliuremetric1wh6D1EAA34": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ComparisonOperator": "LessThanThreshold",
+        "EvaluationPeriods": 1,
+        "AlarmActions": [
+          {
+            "Ref": "AlarmAlert8BAEBE0F"
+          }
+        ],
+        "Dimensions": [
+          {
+            "Name": "FunctioName",
+            "Value": {
+              "Ref": "basitWebHealthLambdaA5E06DCF"
+            }
+          }
+        ],
+        "MetricName": "Duration",
+        "Namespace": "AWS/Lambda",
+        "Period": 300,
+        "Statistic": "Average",
+        "Threshold": 4000
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/alarm_for_faliure_metric_1_wh/Resource"
+      }
+    },
+    "alarmforfaliuremetric2wh50163101": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ComparisonOperator": "LessThanThreshold",
+        "EvaluationPeriods": 1,
+        "AlarmActions": [
+          {
+            "Ref": "AlarmAlert8BAEBE0F"
+          }
+        ],
+        "Dimensions": [
+          {
+            "Name": "FunctioName",
+            "Value": {
+              "Ref": "basitWebHealthLambdaA5E06DCF"
+            }
+          }
+        ],
+        "MetricName": "Errors",
+        "Namespace": "AWS/Lambda",
+        "Period": 300,
+        "Statistic": "Average",
+        "Threshold": 3500
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/alarm_for_faliure_metric_2_wh/Resource"
+      }
+    },
+    "LambdaAliaswh83C43830": {
+      "Type": "AWS::Lambda::Alias",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "basitWebHealthLambdaA5E06DCF"
+        },
+        "FunctionVersion": {
+          "Fn::GetAtt": [
+            "basitWebHealthLambdaCurrentVersionD43B8138def7e4c3140461d5fbc41a83c977ff4f",
+            "Version"
+          ]
+        },
+        "Name": "current"
+      },
+      "UpdatePolicy": {
+        "CodeDeployLambdaAliasUpdate": {
+          "ApplicationName": {
+            "Ref": "WebHealthDeploymentwhApplicationC46537AE"
+          },
+          "DeploymentGroupName": {
+            "Ref": "WebHealthDeploymentwh9CCE2182"
+          }
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/Lambda_Alias_wh/Resource"
+      }
+    },
+    "WebHealthDeploymentwhApplicationC46537AE": {
+      "Type": "AWS::CodeDeploy::Application",
+      "Properties": {
+        "ComputePlatform": "Lambda"
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/WebHealthDeployment_wh/Application/Resource"
+      }
+    },
+    "WebHealthDeploymentwhServiceRole16D07AC1": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "codedeploy.",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ".",
+                      {
+                        "Ref": "AWS::URLSuffix"
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSCodeDeployRoleForLambdaLimited"
+              ]
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/WebHealthDeployment_wh/ServiceRole/Resource"
+      }
+    },
+    "WebHealthDeploymentwh9CCE2182": {
+      "Type": "AWS::CodeDeploy::DeploymentGroup",
+      "Properties": {
+        "ApplicationName": {
+          "Ref": "WebHealthDeploymentwhApplicationC46537AE"
+        },
+        "ServiceRoleArn": {
+          "Fn::GetAtt": [
+            "WebHealthDeploymentwhServiceRole16D07AC1",
+            "Arn"
+          ]
+        },
+        "AlarmConfiguration": {
+          "Alarms": [
+            {
+              "Name": {
+                "Ref": "alarmforfaliuremetric1wh6D1EAA34"
+              }
+            },
+            {
+              "Name": {
+                "Ref": "alarmforfaliuremetric2wh50163101"
+              }
+            }
+          ],
+          "Enabled": true
+        },
+        "AutoRollbackConfiguration": {
+          "Enabled": true,
+          "Events": [
+            "DEPLOYMENT_FAILURE",
+            "DEPLOYMENT_STOP_ON_ALARM"
+          ]
+        },
+        "DeploymentConfigName": "CodeDeployDefault.LambdaLinear10PercentEvery1Minute",
+        "DeploymentStyle": {
+          "DeploymentOption": "WITH_TRAFFIC_CONTROL",
+          "DeploymentType": "BLUE_GREEN"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/WebHealthDeployment_wh/Resource"
+      }
+    },
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/zPSMzTRM1BMLC/WTU7J1s3JTNKrDi5JTM7WcU7LC0otzi8tSk4FsZ3z81IySzLz82p1AipLMvLz9I31zPQsFbOKMzN1i0rzSjJzU/WCIDQAjhnQlVUAAAA="
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/12Qy07DMBBFv6V7x1AqYJ0WwYZFlFZsq4lt2iF+RH5QRVb+HcduUdTVnHtHo7kzT3T9TB9XcHEV430lsaNx74H1JFnHiKBobI0UZPetc22MRDbOstBEJKiOA43vQTOPRs+9f/4S1l29BTbCKnRZ1RLBzV6GibjNEZwT3tF6LknTbWC98FtwgohfoVMrtuEaKdU0o5N1MAOy2SuwD51jFodboqWeCJMm8At4dqaxlmBVSZBgInzUoAxPjzhAV9ZkSFOGCy4GaUYaP/PVb1mpFOrDmjCQ4tbDkF4Dt9V38m5mmki+NH39hPpEWuFMsKyct+Cd0RxL+mb0Z6MfNvSVrl9WPw6xskF7VIK2pf4BgKEwbdcBAAA="
       },
       "Metadata": {
         "aws:cdk:path": "BasitPipeLine/beta/Basitstepstage/CDKMetadata/Default"

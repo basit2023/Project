@@ -1,7 +1,20 @@
 {
   "version": "16.0.0",
   "files": {
-    "99d86f9cca785e2b0e6b8ee135a35ceeba60b4f901222c6080fc39e3eaf5cd41": {
+    "77657da7157d60ae0209bf1478a86b07e3497c516479934bd1c98faac1f637ed": {
+      "source": {
+        "path": "../asset.77657da7157d60ae0209bf1478a86b07e3497c516479934bd1c98faac1f637ed",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "77657da7157d60ae0209bf1478a86b07e3497c516479934bd1c98faac1f637ed.zip",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    },
+    "faf9f495c201a886dc684a3b63fd11ac991f8293ee459c610325d6d4346db291": {
       "source": {
         "path": "BasitPipeLineProdBasitstepstage83050D48.template.json",
         "packaging": "file"
@@ -9,7 +22,7 @@
       "destinations": {
         "current_account-current_region": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "99d86f9cca785e2b0e6b8ee135a35ceeba60b4f901222c6080fc39e3eaf5cd41.json",
+          "objectKey": "faf9f495c201a886dc684a3b63fd11ac991f8293ee459c610325d6d4346db291.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }

@@ -1,7 +1,7 @@
 {
   "version": "16.0.0",
   "files": {
-    "5e8d9303266ce8884952a5bdb7e2c2426dd03694ac7df52e72a2ab2884d7bd8d": {
+    "866b3a50e1fb6b6c50cabc379e6de4439f3d1c303298462055171340e1af9ff0": {
       "source": {
         "path": "BasitPipeLine.template.json",
         "packaging": "file"
@@ -9,7 +9,7 @@
       "destinations": {
         "current_account-current_region": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "5e8d9303266ce8884952a5bdb7e2c2426dd03694ac7df52e72a2ab2884d7bd8d.json",
+          "objectKey": "866b3a50e1fb6b6c50cabc379e6de4439f3d1c303298462055171340e1af9ff0.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }

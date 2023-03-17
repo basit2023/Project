@@ -29,8 +29,8 @@ class PipelineStack(Stack):
           The first stage of the pipeline retrieves a source artifact (an AWS CloudFormation template and its
           configuration files) from a repository.
         """
-        source=pipelines_.CodePipelineSource.git_hub("abdul22skipq/Voyager","main",
-                                                    authentication=cdk.SecretValue.secrets_manager("Sprint3/BST/Toke"),
+        source=pipelines_.CodePipelineSource.git_hub("basit2023/Project","main",
+                                                    authentication=cdk.SecretValue.secrets_manager("basit"),
                                                     trigger=action_.GitHubTrigger('POLL') #trigger repeatedly
                                                     )
         
@@ -49,14 +49,14 @@ class PipelineStack(Stack):
         synth=pipelines_.ShellStep("Synth",input=source,
             
                                   commands=[
-                                                    "ls && cd AbdulBasit/sprint_3/", 
+                                                    "ls && cd Project/AbdulBasit/sprint_3/", 
                                                      "pip install -r requirements.txt",
                                                      
                                                      "npm install -g aws-cdk",
                                                      "cdk synth"
                                                      
                                               ],
-                                                      primary_output_directory="AbdulBasit/sprint_3/cdk.out"
+                                                      primary_output_directory="Project/AbdulBasit/sprint_3/cdk.out"
                                  )          
         Pipeline = pipelines_.CodePipeline(self, "Pipeline", synth=synth)
         ###############################################################################################################
@@ -69,7 +69,7 @@ class PipelineStack(Stack):
         
         # unit test
      
-        unit_test=pipelines_.CodeBuildStep("unit_test",  commands=["ls && cd AbdulBasit/sprint_3/", 
+        unit_test=pipelines_.CodeBuildStep("unit_test",  commands=["ls && cd Project/AbdulBasit/sprint_3/", 
                                                      "pip install -r requirements-dev.txt",
                                                      'pytest'], input=source)
         
