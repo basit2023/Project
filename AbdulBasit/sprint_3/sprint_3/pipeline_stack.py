@@ -48,7 +48,7 @@ class PipelineStack(Stack):
         """
         synth=pipelines_.ShellStep("Synth",input=source,
             
-                                  commands=[
+                                  commands=[#code is 
                                                     "ls && cd Project/AbdulBasit/sprint_3/", 
                                                      "pip install -r requirements.txt",
                                                      
