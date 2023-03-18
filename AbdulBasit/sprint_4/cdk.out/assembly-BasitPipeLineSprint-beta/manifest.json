@@ -17,7 +17,7 @@
         "validateOnSynth": true,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/ccc012f2b0095578d7c155f97198b5f3ab35785ee9eb4cf0a29fb87a84455e74.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/15d16dce2faade2bf1a5d1807b279b09f898b0e43f4f4c0b1ea1c3fe6aec9f05.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -55,7 +55,7 @@
         "/BasitPipeLineSprint/beta/BasitstepstageSprint4/basit_WebHealthLambda/CurrentVersion/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "basitWebHealthLambdaCurrentVersionD43B81381f7112c34d6c58cac5b394789759262f"
+            "data": "basitWebHealthLambdaCurrentVersionD43B8138d8eb7fd56b5f99ea982ad737bab04d52"
           }
         ],
         "/BasitPipeLineSprint/beta/BasitstepstageSprint4/abdulbasitbucket/Resource": [
@@ -421,7 +421,7 @@
         "/BasitPipeLineSprint/beta/BasitstepstageSprint4/AbdulBasitDynamoDBLambda/CurrentVersion/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "AbdulBasitDynamoDBLambdaCurrentVersion19CDC7185365a6b5097ae45f87b502a4682260e9"
+            "data": "AbdulBasitDynamoDBLambdaCurrentVersion19CDC718b94109634b2655d9f3c6507f81c389cc"
           }
         ],
         "/BasitPipeLineSprint/beta/BasitstepstageSprint4/My_table_for_alarm_logs/Resource": [

@@ -1,4 +1,4 @@
-"""
+
 import os
 
 import aws_cdk as cdk
@@ -60,3 +60,4 @@ Sprint4Stack(app, "BasitSprint4Stack",
     )
 
 app.synth()
+"""

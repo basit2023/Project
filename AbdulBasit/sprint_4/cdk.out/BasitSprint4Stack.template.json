@@ -122,7 +122,7 @@
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
           },
-          "S3Key": "b60ab31de059076cd5d44590ee575b24e8bd3e70bf67584cf70372cae3ea6d06.zip"
+          "S3Key": "6142eb8ba2f655ab5b0f3162d956f5c09dded0225943ff524db3af09dc3c2e0f.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -141,7 +141,7 @@
           }
         },
         "Handler": "WebHealthLambda.lambda_handler",
-        "Runtime": "python3.6",
+        "Runtime": "python3.7",
         "Tags": [
           {
             "Key": "cohort",
@@ -162,12 +162,12 @@
       "DeletionPolicy": "Delete",
       "Metadata": {
         "aws:cdk:path": "BasitSprint4Stack/basit_WebHealthLambda/Resource",
-        "aws:asset:path": "asset.b60ab31de059076cd5d44590ee575b24e8bd3e70bf67584cf70372cae3ea6d06",
+        "aws:asset:path": "asset.6142eb8ba2f655ab5b0f3162d956f5c09dded0225943ff524db3af09dc3c2e0f",
         "aws:asset:is-bundled": false,
         "aws:asset:property": "Code"
       }
     },
-    "basitWebHealthLambdaCurrentVersionD43B81384631a7b4df31ae6ec432781843097451": {
+    "basitWebHealthLambdaCurrentVersionD43B8138d8eb7fd56b5f99ea982ad737bab04d52": {
       "Type": "AWS::Lambda::Version",
       "Properties": {
         "FunctionName": {
@@ -562,7 +562,7 @@
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
           },
-          "S3Key": "b60ab31de059076cd5d44590ee575b24e8bd3e70bf67584cf70372cae3ea6d06.zip"
+          "S3Key": "6142eb8ba2f655ab5b0f3162d956f5c09dded0225943ff524db3af09dc3c2e0f.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -578,7 +578,7 @@
           }
         },
         "Handler": "lambda_Db_tabal.lambda_handler",
-        "Runtime": "python3.6",
+        "Runtime": "python3.7",
         "Tags": [
           {
             "Key": "cohort",
@@ -599,7 +599,7 @@
       "DeletionPolicy": "Delete",
       "Metadata": {
         "aws:cdk:path": "BasitSprint4Stack/Table_DynamoDB_Lambda/Resource",
-        "aws:asset:path": "asset.b60ab31de059076cd5d44590ee575b24e8bd3e70bf67584cf70372cae3ea6d06",
+        "aws:asset:path": "asset.6142eb8ba2f655ab5b0f3162d956f5c09dded0225943ff524db3af09dc3c2e0f",
         "aws:asset:is-bundled": false,
         "aws:asset:property": "Code"
       }
@@ -750,13 +750,13 @@
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
           },
-          "S3Key": "dc4f68f05c4deb9ab720f82f124754acb41ac68a8a136519738df7c22ab316f6.zip"
+          "S3Key": "391a62714930dde9689f73f04bec0cd78494b9d9b7167446e54c6c939bbbb6b4.zip"
         },
         "Description": "/opt/awscli/aws"
       },
       "Metadata": {
         "aws:cdk:path": "BasitSprint4Stack/s3_resource/AwsCliLayer/Resource",
-        "aws:asset:path": "asset.dc4f68f05c4deb9ab720f82f124754acb41ac68a8a136519738df7c22ab316f6.zip",
+        "aws:asset:path": "asset.391a62714930dde9689f73f04bec0cd78494b9d9b7167446e54c6c939bbbb6b4.zip",
         "aws:asset:is-bundled": false,
         "aws:asset:property": "Content"
       }
@@ -937,7 +937,7 @@
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
           },
-          "S3Key": "4e09e63403b235ffda9db09367996f2d4c9fe1f7aa19b402908d8221614a282e.zip"
+          "S3Key": "f98b78092dcdd31f5e6d47489beb5f804d4835ef86a8085d0a2053cb9ae711da.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -970,7 +970,7 @@
       ],
       "Metadata": {
         "aws:cdk:path": "BasitSprint4Stack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource",
-        "aws:asset:path": "asset.4e09e63403b235ffda9db09367996f2d4c9fe1f7aa19b402908d8221614a282e",
+        "aws:asset:path": "asset.f98b78092dcdd31f5e6d47489beb5f804d4835ef86a8085d0a2053cb9ae711da",
         "aws:asset:is-bundled": false,
         "aws:asset:property": "Code"
       }
@@ -982,7 +982,7 @@
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
           },
-          "S3Key": "b60ab31de059076cd5d44590ee575b24e8bd3e70bf67584cf70372cae3ea6d06.zip"
+          "S3Key": "6142eb8ba2f655ab5b0f3162d956f5c09dded0225943ff524db3af09dc3c2e0f.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -998,7 +998,7 @@
           }
         },
         "Handler": "API_lambda.lambda_handler",
-        "Runtime": "python3.6",
+        "Runtime": "python3.7",
         "Tags": [
           {
             "Key": "cohort",
@@ -1017,7 +1017,7 @@
       ],
       "Metadata": {
         "aws:cdk:path": "BasitSprint4Stack/basit_APILambda/Resource",
-        "aws:asset:path": "asset.b60ab31de059076cd5d44590ee575b24e8bd3e70bf67584cf70372cae3ea6d06",
+        "aws:asset:path": "asset.6142eb8ba2f655ab5b0f3162d956f5c09dded0225943ff524db3af09dc3c2e0f",
         "aws:asset:is-bundled": false,
         "aws:asset:property": "Code"
       }
@@ -2226,7 +2226,8 @@
                 "dynamodb:BatchWriteItem",
                 "dynamodb:PutItem",
                 "dynamodb:UpdateItem",
-                "dynamodb:DeleteItem"
+                "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable"
               ],
               "Effect": "Allow",
               "Resource": [
@@ -2262,7 +2263,7 @@
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
           },
-          "S3Key": "b60ab31de059076cd5d44590ee575b24e8bd3e70bf67584cf70372cae3ea6d06.zip"
+          "S3Key": "6142eb8ba2f655ab5b0f3162d956f5c09dded0225943ff524db3af09dc3c2e0f.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -2278,7 +2279,7 @@
           }
         },
         "Handler": "db_lambda.lambda_handler",
-        "Runtime": "python3.6",
+        "Runtime": "python3.7",
         "Tags": [
           {
             "Key": "cohort",
@@ -2299,7 +2300,7 @@
       "DeletionPolicy": "Delete",
       "Metadata": {
         "aws:cdk:path": "BasitSprint4Stack/AbdulBasitDynamoDBLambda/Resource",
-        "aws:asset:path": "asset.b60ab31de059076cd5d44590ee575b24e8bd3e70bf67584cf70372cae3ea6d06",
+        "aws:asset:path": "asset.6142eb8ba2f655ab5b0f3162d956f5c09dded0225943ff524db3af09dc3c2e0f",
         "aws:asset:is-bundled": false,
         "aws:asset:property": "Code"
       }
@@ -2341,7 +2342,7 @@
         "aws:cdk:path": "BasitSprint4Stack/AbdulBasitDynamoDBLambda/Alarm Alert!/Resource"
       }
     },
-    "AbdulBasitDynamoDBLambdaCurrentVersion19CDC71816b8e17988a903e5611194406431e6a1": {
+    "AbdulBasitDynamoDBLambdaCurrentVersion19CDC718b94109634b2655d9f3c6507f81c389cc": {
       "Type": "AWS::Lambda::Version",
       "Properties": {
         "FunctionName": {
@@ -2453,7 +2454,7 @@
         },
         "FunctionVersion": {
           "Fn::GetAtt": [
-            "AbdulBasitDynamoDBLambdaCurrentVersion19CDC71816b8e17988a903e5611194406431e6a1",
+            "AbdulBasitDynamoDBLambdaCurrentVersion19CDC718b94109634b2655d9f3c6507f81c389cc",
             "Version"
           ]
         },
@@ -2662,7 +2663,7 @@
         },
         "FunctionVersion": {
           "Fn::GetAtt": [
-            "basitWebHealthLambdaCurrentVersionD43B81384631a7b4df31ae6ec432781843097451",
+            "basitWebHealthLambdaCurrentVersionD43B8138d8eb7fd56b5f99ea982ad737bab04d52",
             "Version"
           ]
         },
@@ -2806,7 +2807,7 @@
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/21Sy04rMQz9FvZpuBckJJZDEWxAVC1iW7mJKaaZJMqDMhrNv988ZjoF3ZWPjxMnPsdX/O8V/3MBR78Q8rBQtOP9JoA4sERte4KW92ujkC3fdYkro0h0Oa1oYAranQTeP0QtAhmdayf8hs6P3BlcoWvJT9kTdOim6ob0XmEwc4tGEfh8roCB+ettD95j8LzJgUm0ynQt6sDvojhguD8R+TTvK3sHHlmFuduIapinOs8HJjsNrZFJlFfYVRUKGBhY2kPAI3S8fyoKrNGHxlJRaoaNECbqwOY/ZfYsS2rvS+MK0lUTncDy25Uz393EjI0rfsbwYWSmRjRVBoZfqa1PtsXRtpj/63WiXo0lUYYoYBN3Xjiyk2vn+cCEMlEeIYgP3jcKXFs9SCDVjMQq+zT9PNGjM9GyyjbWJiFheuBX+uvOMLBiaBYibQFbRh9M+9/xf5aSTF8k0Z1EGHdyq/JmbdMmC0W8OfqlorJsuddLDDYWM5ZGS6ozr7okpr685jf89uLTEy1cMo9a5Osa/wGSrNB9MAMAAA=="
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/21STU8jMQz9LdzTsIAWzkNXywW0VYv2WrmJaU0zSZQPymg0/33zMdMpaE9+fk6c+D3f8puf/McVnPxCyONC0Y73mwDiyBK17Qla3q+NQrZ80yWujCLR5bSigSlodxJ4/ztqEcjoXDvjv+j8yF3AFbqW/JQ9Q4duqm5I7xUGM7doFIHP5woYmL/b9uA9Bs+bHJhEq0zXog78MYojhl9nIp/mfWUfwSOrMHcbUQ3zVJf5wGSnoTUyifIKu6pCAQMDS3sIeIKO989FgTX60FgqSs2wEcJEHdj8p8xeZEntfWlcQbpqohNYfrty5rObmLFxxS8YDkZmakRTZWD4kdr6ZFscbYv5v14n6tVYEmWIAjZx54UjO7l2mQ9MKBPlCYI48L5R4NrqQQKpZiRW2afp54menImWVbaxNgkJ0wPf0m93hoEVQ7MQaQvYMvpg2v+O/7WUZPogie4swriTW5U3a5s2WSjizckvFZVly73+xGBjMWNptKQ686pLYurrO/7Ab+6v3j3RwiX3qEW+rvEfI8LVATEDAAA="
       },
       "Metadata": {
         "aws:cdk:path": "BasitSprint4Stack/CDKMetadata/Default"

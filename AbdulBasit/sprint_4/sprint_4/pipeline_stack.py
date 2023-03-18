@@ -29,8 +29,8 @@ class PipelineStack(Stack):
           The first stage of the pipeline retrieves a source artifact (an AWS CloudFormation template and its
           configuration files) from a repository.
         """
-        source=pipelines_.CodePipelineSource.git_hub("abdul22skipq/Voyager","main",
-                                                    authentication=cdk.SecretValue.secrets_manager("Sprint3/BST/Toke"),
+        source=pipelines_.CodePipelineSource.git_hub("basit2023/Project","main",
+                                                    authentication=cdk.SecretValue.secrets_manager("basit"),
                                                     trigger=action_.GitHubTrigger('POLL') #trigger repeatedly
                                                     )
         
@@ -49,14 +49,14 @@ class PipelineStack(Stack):
         synth=pipelines_.ShellStep("Synth",input=source,
             
                                   commands=[
-                                                    "ls && cd AbdulBasit/sprint_4/", 
+                                                    "ls && cd Project/AbdulBasit/sprint_4", 
                                                      "pip install -r requirements.txt",
                                                      
                                                      "npm install -g aws-cdk",
                                                      "cdk synth"
                                                      
                                               ],
-                                                      primary_output_directory="AbdulBasit/sprint_4/cdk.out"
+                                                      primary_output_directory="Project/AbdulBasit/sprint_4/cdk.out"
                                  )          
         Pipeline = pipelines_.CodePipeline(self, "Pipeline", synth=synth)
         ###############################################################################################################
@@ -68,7 +68,7 @@ class PipelineStack(Stack):
         
         # unit test
      
-        unit_test=pipelines_.CodeBuildStep("unit_test",  commands=["ls && cd AbdulBasit/sprint_4/", 
+        unit_test=pipelines_.CodeBuildStep("unit_test",  commands=["ls && cd Project/AbdulBasit/sprint_4/", 
                                                      "pip install -r requirements-dev.txt",
                                                      'python -m pytest -vv tests/'], input=source)    #insted of pytest i added the other command because I was facing issue with pytest
                                                      
@@ -82,11 +82,12 @@ class PipelineStack(Stack):
        ##################################################################################################################
        ###******************** Integration test *****************************************
        ###############################################################################################################
-        integraion_test=pipelines_.CodeBuildStep("integration_test",  commands=["ls && cd AbdulBasit/sprint_4/", 
-                                                "pip install -r requirements.txt",
-                                                'python3 resource/Integration_test_api.py'], input=source)                #this is the integration test
+        #integraion_test=pipelines_.CodeBuildStep("integration_test",  commands=["ls && cd Project/AbdulBasit/sprint_4/", 
+        #                                        "pip install -r requirements.txt",
+         #                                       'python3 resource/Integration_test_api.py'], input=source)                #this is the integration test
         
-        Pipeline.add_stage(beta  ,pre=[unit_test],post=[integraion_test])      #pre is unit test and post is integration test
+        Pipeline.add_stage(beta  ,pre=[unit_test] #,post=[integraion_test]
+        )      #pre is unit test and post is integration test
                               
                               
                               

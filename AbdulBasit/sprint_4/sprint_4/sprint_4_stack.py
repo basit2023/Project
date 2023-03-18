@@ -512,7 +512,7 @@ class Sprint4Stack(Stack):
         """
         return lambda_.Function(self, id_,
                                       code=lambda_.Code.from_asset(asset),
-                                      runtime=lambda_.Runtime.PYTHON_3_6,
+                                      runtime=lambda_.Runtime.PYTHON_3_7,
                                       handler=lambda_handler,
                                       timeout=Duration.seconds(30),
                                       role=rule)
