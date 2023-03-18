@@ -45,7 +45,7 @@ class PipelineStack(Stack):
          primary_output_directory (Optional[str]) – The directory that will contain the primary output fileset.
          In the second stage, the pipeline creates a test stack
          
-        """
+        """ #added
         synth=pipelines_.ShellStep("Synth",input=source,
             
                                   commands=[#code is 
